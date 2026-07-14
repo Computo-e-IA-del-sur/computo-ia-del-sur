@@ -17,10 +17,13 @@ type Project = {
 // TODO: once "Mi Tren Ligero" is published on Google Play, swap this to:
 //   0: "https://play.google.com/store/apps/details?id=com.computoeiadelsur.reportestrenligero"
 // (package ID confirmed from the .aab; as of 2026-07-14 that URL still
-// 404s — the app isn't live yet, so this points at #contacto instead of
-// a dead link in the meantime.)
+// 404s — the app isn't live yet). Meanwhile this points at the EAS
+// internal-distribution build page, which lets Android visitors install
+// the APK directly. NOTE: this URL is tied to one specific build
+// (f1068256-...) — generating a new EAS build later gets a new URL, so
+// this needs updating each time until the app ships to Play Store.
 const projectLinks: Record<number, string> = {
-  0: "#contacto",
+  0: "https://expo.dev/accounts/arturo.vr/projects/mi-tren-ligero/builds/f1068256-abe6-479f-9d04-9260c1fb9099",
 };
 
 export default function Portfolio() {
