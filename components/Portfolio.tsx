@@ -13,9 +13,11 @@ type Project = {
 // Structural data (URLs aren't translatable content, so it lives outside
 // messages/*.json). Keyed by project index — matches `Portfolio.projects`
 // in each locale file.
-// TODO: replace with the real "Mi Tren Ligero" link (Play Store / App
-// Store / web app). Until then it points at #contacto instead of a dead
-// "#" link, so it's still a useful click rather than a no-op.
+// TODO: once "Mi Tren Ligero" is published on Google Play, swap this to:
+//   0: "https://play.google.com/store/apps/details?id=com.computoeiadelsur.reportestrenligero"
+// (package ID confirmed from the .aab; as of 2026-07-14 that URL still
+// 404s — the app isn't live yet, so this points at #contacto instead of
+// a dead link in the meantime.)
 const projectLinks: Record<number, string> = {
   0: "#contacto",
 };

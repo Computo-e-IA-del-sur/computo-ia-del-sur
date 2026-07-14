@@ -30,7 +30,7 @@ export default function Terminos() {
       <p>Estos términos se rigen por las leyes de los Estados Unidos Mexicanos. Cualquier controversia se someterá a los tribunales competentes en México.</p>
 
       <h2>9. Contacto</h2>
-      <p>Para dudas sobre estos Términos y Condiciones, contáctanos en <a href="mailto:hola@computoeiadelsur.com">hola@computoeiadelsur.com</a> o visita nuestro sitio web oficial: computoeiadelsur.com</p>
+      <p>Para dudas sobre estos Términos y Condiciones, contáctanos en <a href="mailto:contacto@computoeiadelsur.com">contacto@computoeiadelsur.com</a> o visita nuestro sitio web oficial: computoeiadelsur.com</p>
     </div>
   );
 }

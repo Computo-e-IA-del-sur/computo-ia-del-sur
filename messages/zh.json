@@ -101,7 +101,7 @@
     "successTitle": "信息已发送!",
     "successBody": "我们会尽快与您联系。",
     "consent": "提交即表示您同意我们的<link>隐私政策</link>。",
-    "errorMessage": "发送失败,请直接发邮件至 <email>hola@computoeiadelsur.com</email>。"
+    "errorMessage": "发送失败,请直接发邮件至 <email>contacto@computoeiadelsur.com</email>。"
   },
   "Footer": {
     "brand": "Computo e IA del Sur",

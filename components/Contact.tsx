@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 // Until then submissions will fail gracefully and fall back to the
 // mailto link shown next to the form.
 const FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
-const CONTACT_EMAIL = "hola@computoeiadelsur.com";
+const CONTACT_EMAIL = "contacto@computoeiadelsur.com";
 
 const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
 

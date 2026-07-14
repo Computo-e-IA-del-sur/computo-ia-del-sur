@@ -56,8 +56,8 @@ export default function Footer() {
             <p className="text-white text-sm font-semibold mb-4">{t("contactHeading")}</p>
             <ul className="flex flex-col gap-2.5 text-sm">
               <li>
-                <a href="mailto:hola@computoeiadelsur.com" className="hover:text-white transition-colors">
-                  hola@computoeiadelsur.com
+                <a href="mailto:contacto@computoeiadelsur.com" className="hover:text-white transition-colors">
+                  contacto@computoeiadelsur.com
                 </a>
               </li>
               <li className="text-white/30">{t("location")}</li>
