@@ -1,25 +1,27 @@
-const projects = [
-  {
-    tag: "App Móvil",
-    title: "Mi Tren Ligero",
-    description:
-      "Aplicación oficial de consulta para el Tren Ligero Línea 1 de la CDMX. Horarios, estaciones y reportes en tiempo real.",
-    tech: ["React Native", "Expo", "Supabase"],
-    status: "En pruebas",
-    emoji: "🚊",
-  },
-];
+import { useTranslations } from "next-intl";
+
+type Project = {
+  tag: string;
+  title: string;
+  description: string;
+  tech: string[];
+  status: string;
+  emoji: string;
+};
 
 export default function Portfolio() {
+  const t = useTranslations("Portfolio");
+  const projects = t.raw("projects") as Project[];
+
   return (
     <section id="portafolio" className="py-32 px-6 bg-black text-white">
       <div className="max-w-6xl mx-auto">
         <div className="mb-20">
           <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-4">
-            Portafolio
+            {t("eyebrow")}
           </p>
           <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-            Proyectos reales
+            {t("title")}
           </h2>
         </div>
 
@@ -44,12 +46,12 @@ export default function Portfolio() {
                   {p.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {p.tech.map((t) => (
+                  {p.tech.map((tech) => (
                     <span
-                      key={t}
+                      key={tech}
                       className="text-xs px-3 py-1 rounded-full bg-white/5 text-white/40 border border-white/10"
                     >
-                      {t}
+                      {tech}
                     </span>
                   ))}
                 </div>
@@ -59,10 +61,10 @@ export default function Portfolio() {
 
           <div className="rounded-2xl border-2 border-dashed border-white/10 flex items-center justify-center min-h-64 text-center p-8 hover:border-orange-500/30 transition-colors">
             <div>
-              <p className="text-white/20 font-semibold text-lg">Tu proyecto aquí</p>
-              <p className="text-white/20 text-sm mt-2">¿Tienes una idea? Hablemos.</p>
+              <p className="text-white/20 font-semibold text-lg">{t("empty.title")}</p>
+              <p className="text-white/20 text-sm mt-2">{t("empty.subtitle")}</p>
               <a href="#contacto" className="inline-block mt-4 text-orange-500 text-sm hover:text-orange-400">
-                Contáctanos →
+                {t("empty.cta")}
               </a>
             </div>
           </div>

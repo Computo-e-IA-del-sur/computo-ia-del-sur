@@ -1,0 +1,103 @@
+{
+  "Metadata": {
+    "title": "Computo e IA del Sur",
+    "description": "Soluciones de Inteligencia Artificial, apps móviles y sistemas web."
+  },
+  "Navbar": {
+    "services": "Servicios",
+    "portfolio": "Portafolio",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "cta": "Contáctanos",
+    "menuLabel": "Menú"
+  },
+  "Hero": {
+    "eyebrow": "Tecnología · Inteligencia Artificial · Sur de México",
+    "titleLine1": "Construimos el",
+    "titleLine2": "futuro digital",
+    "titleHighlight": "de tu empresa.",
+    "subtitle": "Somos un equipo especializado en Inteligencia Artificial, aplicaciones móviles y sistemas web. Convertimos ideas en productos reales.",
+    "ctaPrimary": "Ver servicios",
+    "ctaSecondary": "Hablar con nosotros →"
+  },
+  "Services": {
+    "eyebrow": "Servicios",
+    "title": "Lo que hacemos",
+    "items": [
+      {
+        "number": "01",
+        "title": "Soluciones de IA",
+        "description": "Automatización de procesos, chatbots inteligentes, análisis de datos y modelos de predicción adaptados a tu empresa."
+      },
+      {
+        "number": "02",
+        "title": "Apps Móviles",
+        "description": "Desarrollo de aplicaciones para Android e iOS con tecnología moderna, experiencia de usuario intuitiva y publicación en tiendas."
+      },
+      {
+        "number": "03",
+        "title": "Sistemas Web",
+        "description": "Plataformas web a la medida: paneles de administración, portales empresariales, e-commerce y sistemas de gestión."
+      }
+    ]
+  },
+  "Portfolio": {
+    "eyebrow": "Portafolio",
+    "title": "Proyectos reales",
+    "projects": [
+      {
+        "tag": "App Móvil",
+        "title": "Mi Tren Ligero",
+        "description": "Aplicación oficial de consulta para el Tren Ligero Línea 1 de la CDMX. Horarios, estaciones y reportes en tiempo real.",
+        "tech": ["React Native", "Expo", "Supabase"],
+        "status": "En pruebas",
+        "emoji": "🚊"
+      }
+    ],
+    "empty": {
+      "title": "Tu proyecto aquí",
+      "subtitle": "¿Tienes una idea? Hablemos.",
+      "cta": "Contáctanos →"
+    }
+  },
+  "About": {
+    "eyebrow": "Nosotros",
+    "title": "¿Quiénes somos?",
+    "paragraph1": "Somos un equipo de desarrolladores y especialistas en Inteligencia Artificial con sede en el sur de México. Creemos que la tecnología debe ser accesible para empresas de todos los tamaños.",
+    "paragraph2": "Nuestro objetivo es construir productos digitales que generen impacto real: desde apps móviles hasta sistemas de IA que automatizan y optimizan procesos de negocio.",
+    "values": [
+      {
+        "title": "Innovación",
+        "description": "Usamos tecnología de vanguardia para resolver problemas reales."
+      },
+      {
+        "title": "Compromiso",
+        "description": "Acompañamos al cliente desde la idea hasta el lanzamiento."
+      },
+      {
+        "title": "Agilidad",
+        "description": "Entregas rápidas sin sacrificar calidad ni seguridad."
+      }
+    ]
+  },
+  "Contact": {
+    "eyebrow": "Contacto",
+    "titleLine1": "¿Tienes un proyecto",
+    "titleLine2": "en mente?",
+    "subtitle": "Cuéntanos tu idea y te respondemos en menos de 24 horas.",
+    "namePlaceholder": "Tu nombre",
+    "emailPlaceholder": "Correo electrónico",
+    "subjectPlaceholder": "¿En qué podemos ayudarte?",
+    "messagePlaceholder": "Cuéntanos más sobre tu proyecto...",
+    "submit": "Enviar mensaje",
+    "successTitle": "¡Mensaje enviado!",
+    "successBody": "Nos pondremos en contacto contigo pronto."
+  },
+  "Footer": {
+    "brand": "Computo e IA del Sur",
+    "rights": "© {year} — Todos los derechos reservados."
+  },
+  "LanguageSwitcher": {
+    "label": "Idioma"
+  }
+}

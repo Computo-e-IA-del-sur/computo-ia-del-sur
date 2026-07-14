@@ -1,0 +1,103 @@
+{
+  "Metadata": {
+    "title": "Computo e IA del Sur",
+    "description": "Artificial Intelligence solutions, mobile apps, and web systems."
+  },
+  "Navbar": {
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "contact": "Contact",
+    "cta": "Contact us",
+    "menuLabel": "Menu"
+  },
+  "Hero": {
+    "eyebrow": "Technology · Artificial Intelligence · Southern Mexico",
+    "titleLine1": "We build the",
+    "titleLine2": "digital future",
+    "titleHighlight": "of your business.",
+    "subtitle": "We're a team specialized in Artificial Intelligence, mobile apps, and web systems. We turn ideas into real products.",
+    "ctaPrimary": "View services",
+    "ctaSecondary": "Talk to us →"
+  },
+  "Services": {
+    "eyebrow": "Services",
+    "title": "What we do",
+    "items": [
+      {
+        "number": "01",
+        "title": "AI Solutions",
+        "description": "Process automation, intelligent chatbots, data analysis, and prediction models tailored to your business."
+      },
+      {
+        "number": "02",
+        "title": "Mobile Apps",
+        "description": "Android and iOS app development with modern technology, an intuitive user experience, and store publishing."
+      },
+      {
+        "number": "03",
+        "title": "Web Systems",
+        "description": "Custom web platforms: admin dashboards, business portals, e-commerce, and management systems."
+      }
+    ]
+  },
+  "Portfolio": {
+    "eyebrow": "Portfolio",
+    "title": "Real projects",
+    "projects": [
+      {
+        "tag": "Mobile App",
+        "title": "Mi Tren Ligero",
+        "description": "Official companion app for Mexico City's Light Rail Line 1. Real-time schedules, stations, and service reports.",
+        "tech": ["React Native", "Expo", "Supabase"],
+        "status": "In testing",
+        "emoji": "🚊"
+      }
+    ],
+    "empty": {
+      "title": "Your project here",
+      "subtitle": "Got an idea? Let's talk.",
+      "cta": "Contact us →"
+    }
+  },
+  "About": {
+    "eyebrow": "About",
+    "title": "Who we are",
+    "paragraph1": "We're a team of developers and Artificial Intelligence specialists based in southern Mexico. We believe technology should be accessible to businesses of all sizes.",
+    "paragraph2": "Our goal is to build digital products that create real impact: from mobile apps to AI systems that automate and optimize business processes.",
+    "values": [
+      {
+        "title": "Innovation",
+        "description": "We use cutting-edge technology to solve real problems."
+      },
+      {
+        "title": "Commitment",
+        "description": "We support clients from the initial idea all the way to launch."
+      },
+      {
+        "title": "Agility",
+        "description": "Fast delivery without sacrificing quality or security."
+      }
+    ]
+  },
+  "Contact": {
+    "eyebrow": "Contact",
+    "titleLine1": "Have a project",
+    "titleLine2": "in mind?",
+    "subtitle": "Tell us your idea and we'll get back to you in less than 24 hours.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "Email address",
+    "subjectPlaceholder": "How can we help you?",
+    "messagePlaceholder": "Tell us more about your project...",
+    "submit": "Send message",
+    "successTitle": "Message sent!",
+    "successBody": "We'll be in touch with you soon."
+  },
+  "Footer": {
+    "brand": "Computo e IA del Sur",
+    "rights": "© {year} — All rights reserved."
+  },
+  "LanguageSwitcher": {
+    "label": "Language"
+  }
+}

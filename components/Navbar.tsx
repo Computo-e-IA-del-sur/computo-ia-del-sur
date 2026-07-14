@@ -1,15 +1,18 @@
 "use client";
 import { useState } from "react";
-
-const links = [
-  { label: "Servicios", href: "#servicios" },
-  { label: "Portafolio", href: "#portafolio" },
-  { label: "Nosotros", href: "#nosotros" },
-  { label: "Contacto", href: "#contacto" },
-];
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
+  const t = useTranslations("Navbar");
   const [open, setOpen] = useState(false);
+
+  const links = [
+    { label: t("services"), href: "#servicios" },
+    { label: t("portfolio"), href: "#portafolio" },
+    { label: t("about"), href: "#nosotros" },
+    { label: t("contact"), href: "#contacto" },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur border-b border-white/10">
@@ -24,7 +27,7 @@ export default function Navbar() {
           </span>
         </a>
 
-        <nav className="hidden md:flex gap-8">
+        <nav className="hidden md:flex items-center gap-8">
           {links.map((l) => (
             <a
               key={l.href}
@@ -36,17 +39,20 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <a
-          href="#contacto"
-          className="hidden md:inline-flex items-center px-4 py-2 rounded-full bg-orange-500 text-white text-sm font-semibold hover:bg-orange-600 transition-colors"
-        >
-          Contáctanos
-        </a>
+        <div className="hidden md:flex items-center gap-4">
+          <LanguageSwitcher />
+          <a
+            href="#contacto"
+            className="inline-flex items-center px-4 py-2 rounded-full bg-orange-500 text-white text-sm font-semibold hover:bg-orange-600 transition-colors"
+          >
+            {t("cta")}
+          </a>
+        </div>
 
         <button
           className="md:hidden p-2 text-white"
           onClick={() => setOpen(!open)}
-          aria-label="Menú"
+          aria-label={t("menuLabel")}
         >
           <div className="w-5 h-0.5 bg-current mb-1.5" />
           <div className="w-5 h-0.5 bg-current mb-1.5" />
@@ -66,6 +72,7 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
+          <LanguageSwitcher />
         </nav>
       )}
     </header>
