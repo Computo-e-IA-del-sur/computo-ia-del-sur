@@ -18,7 +18,7 @@ export default function TechStack() {
   const t = useTranslations("TechStack");
 
   return (
-    <div className="bg-black border-t border-white/5 py-10 px-6">
+    <div className="bg-zinc-950 border-t border-white/5 py-10 px-6">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center gap-6 sm:gap-10">
         <p className="text-xs font-semibold tracking-widest uppercase text-white/30 shrink-0">
           {t("heading")}

@@ -1,4 +1,6 @@
 import { useTranslations } from "next-intl";
+import { BrainCircuit, Smartphone, Globe, type LucideIcon } from "lucide-react";
+import Reveal from "./Reveal";
 
 type ServiceItem = {
   number: string;
@@ -6,35 +8,52 @@ type ServiceItem = {
   description: string;
 };
 
+// Icons are structural (order matches Services.items in messages/*.json),
+// not translated content, so they live here rather than in the JSON.
+const ICONS: LucideIcon[] = [BrainCircuit, Smartphone, Globe];
+
 export default function Services() {
   const t = useTranslations("Services");
   const items = t.raw("items") as ServiceItem[];
 
   return (
-    <section id="servicios" className="py-32 px-6 bg-white">
+    <section id="servicios" className="py-32 px-6 bg-zinc-950">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-20">
+        <Reveal className="mb-20">
           <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-4">
             {t("eyebrow")}
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-black leading-tight">
+          <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
             {t("title")}
           </h2>
-        </div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-0 border border-gray-100 rounded-2xl overflow-hidden">
-          {items.map((s, i) => (
-            <div
-              key={s.title}
-              className={`p-10 ${i < items.length - 1 ? "md:border-r border-gray-100" : ""} hover:bg-gray-50 transition-colors`}
-            >
-              <span className="text-4xl font-bold text-gray-100 block mb-8">
-                {s.number}
-              </span>
-              <h3 className="text-xl font-bold text-black mb-4">{s.title}</h3>
-              <p className="text-gray-600 leading-relaxed text-sm">{s.description}</p>
-            </div>
-          ))}
+        <div className="grid md:grid-cols-3 gap-6">
+          {items.map((s, i) => {
+            const Icon = ICONS[i];
+            return (
+              <Reveal key={s.title} delay={i * 0.1}>
+                <div className="group relative h-full rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-10 overflow-hidden transition-colors duration-300 hover:border-orange-500/50">
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none select-none absolute -top-6 -right-2 text-[8rem] font-bold leading-none text-white/[0.04]"
+                  >
+                    {s.number}
+                  </span>
+
+                  <div className="relative">
+                    <div className="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-8 text-orange-400 transition-colors duration-300 group-hover:bg-orange-500/20 group-hover:border-orange-500/40">
+                      {Icon && <Icon className="w-6 h-6" strokeWidth={1.75} />}
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-4">{s.title}</h3>
+                    <p className="text-white/50 leading-relaxed text-sm">
+                      {s.description}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -25,7 +25,7 @@ export default function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-white/60 hover:text-white transition-colors"
+              className="nav-link text-sm text-white/60 hover:text-white transition-colors"
             >
               {l.label}
             </a>
@@ -36,7 +36,7 @@ export default function Navbar() {
           <LanguageSwitcher />
           <a
             href="#contacto"
-            className="inline-flex items-center px-4 py-2 rounded-full bg-orange-500 text-white text-sm font-semibold hover:bg-orange-600 transition-colors"
+            className="btn-glow inline-flex items-center px-4 py-2 rounded-full bg-orange-500 text-white text-sm font-semibold hover:bg-orange-600"
           >
             {t("cta")}
           </a>
@@ -60,7 +60,7 @@ export default function Navbar() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-sm text-white/70 hover:text-white"
+              className="nav-link self-start text-sm text-white/70 hover:text-white"
             >
               {l.label}
             </a>

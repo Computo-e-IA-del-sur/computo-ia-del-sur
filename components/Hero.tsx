@@ -5,7 +5,7 @@ export default function Hero() {
   const t = useTranslations("Hero");
 
   return (
-    <section className="relative min-h-screen bg-black text-white flex items-center px-6 overflow-hidden">
+    <section className="relative min-h-screen bg-zinc-950 text-white flex items-center px-6 overflow-hidden">
       <div className="absolute inset-0 bg-aurora" />
       <HeroBackground />
 
@@ -24,13 +24,13 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4">
           <a
             href="#servicios"
-            className="px-8 py-4 rounded-full bg-orange-500 text-white font-semibold hover:bg-orange-600 transition-colors text-center"
+            className="btn-glow px-8 py-4 rounded-full bg-orange-500 text-white font-semibold hover:bg-orange-600 text-center"
           >
             {t("ctaPrimary")}
           </a>
           <a
             href="#contacto"
-            className="px-8 py-4 rounded-full border border-white/20 text-white font-semibold hover:bg-white/5 transition-colors text-center"
+            className="btn-glow-ghost px-8 py-4 rounded-full border border-white/20 text-white font-semibold hover:bg-white/5 text-center"
           >
             {t("ctaSecondary")}
           </a>

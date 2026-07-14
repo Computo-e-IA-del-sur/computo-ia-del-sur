@@ -41,3 +41,67 @@ body {
     animation: none;
   }
 }
+
+/* Shared button micro-interaction: soft glow + a hair of lift on hover.
+   Two variants so it reads correctly on solid vs. ghost/bordered buttons. */
+.btn-glow {
+  transition: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease;
+}
+.btn-glow:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -8px rgba(249, 115, 22, 0.6);
+}
+.btn-glow:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-glow-ghost {
+  transition: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease;
+}
+.btn-glow-ghost:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px -10px rgba(255, 255, 255, 0.35);
+}
+.btn-glow-ghost:active {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow,
+  .btn-glow-ghost {
+    transition: background-color 300ms ease;
+  }
+  .btn-glow:hover,
+  .btn-glow-ghost:hover {
+    transform: none;
+  }
+}
+
+/* Fluid animated underline for nav-style links — grows from the left on
+   hover/focus instead of a hard on/off state change. */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms ease;
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none;
+  }
+}

@@ -29,7 +29,7 @@ export default function Logo({ markOnly = false, className = "" }: LogoProps) {
         viewBox="0 0 40 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="shrink-0 transition-transform duration-500 ease-out group-hover:rotate-[8deg]"
+        className="shrink-0 transition-[transform,filter] duration-500 ease-out group-hover:rotate-[8deg] group-hover:drop-shadow-[0_0_8px_rgba(251,146,60,0.65)]"
         aria-hidden="true"
       >
         <defs>
@@ -69,7 +69,7 @@ export default function Logo({ markOnly = false, className = "" }: LogoProps) {
           <span className="block font-semibold text-white text-[15px] tracking-tight">
             Computo e IA
           </span>
-          <span className="block text-[10.5px] font-medium tracking-[0.2em] uppercase text-orange-400/90">
+          <span className="block text-[10.5px] font-medium tracking-[0.2em] uppercase text-orange-400/90 transition-colors duration-500 group-hover:text-orange-300">
             del Sur
           </span>
         </span>

@@ -9,19 +9,36 @@ type Node = {
   vy: number;
 };
 
+type Streak = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  len: number;
+  life: number;
+  maxLife: number;
+};
+
 const NODE_SPACING = 34_000; // px^2 per node — controls density regardless of screen size
 const MAX_NODES = 90;
 const LINK_DISTANCE = 140;
 const CURSOR_RADIUS = 160;
+const CURSOR_LINK_DISTANCE = 180;
 const LINE_COLOR = "251, 146, 60"; // orange-400 rgb
 const NODE_COLOR = "253, 186, 116"; // orange-300 rgb
+const MAX_STREAKS = 2;
+const STREAK_MIN_GAP = 140; // frames between spawns, minimum
+const STREAK_MAX_GAP = 320; // frames between spawns, maximum
 
 /**
  * A quiet, ambient "AI network" canvas: a handful of drifting nodes linked
- * by fading edges, with a soft pull toward the cursor. Pure Canvas2D (no
- * WebGL/three.js — unnecessary weight for a marketing hero) so it costs
- * almost nothing to ship. Pauses itself whenever it can't be seen and
- * respects prefers-reduced-motion by rendering a single static frame.
+ * by fading edges, with a soft pull toward the cursor (and live connecting
+ * lines drawn straight to the pointer, so it reads as "you're part of the
+ * network"), plus the occasional fast "data stream" streak crossing the
+ * frame. Pure Canvas2D (no WebGL/three.js — unnecessary weight for a
+ * marketing hero) so it costs almost nothing to ship. Pauses itself
+ * whenever it can't be seen and respects prefers-reduced-motion by
+ * rendering a single static frame.
  */
 export default function InteractiveBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -40,9 +57,29 @@ export default function InteractiveBackground() {
     let height = 0;
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let nodes: Node[] = [];
+    let streaks: Streak[] = [];
+    let frame = 0;
+    let nextStreakAt = STREAK_MIN_GAP + Math.random() * (STREAK_MAX_GAP - STREAK_MIN_GAP);
     let rafId = 0;
     let running = false;
     const pointer = { x: -9999, y: -9999 };
+
+    function spawnStreak() {
+      // Enter from a random edge, travel diagonally across at high speed.
+      const fromLeft = Math.random() > 0.5;
+      const speed = 9 + Math.random() * 6;
+      const angle = (Math.random() * 30 - 15) * (Math.PI / 180); // mostly horizontal, slight tilt
+      const dir = fromLeft ? 1 : -1;
+      streaks.push({
+        x: fromLeft ? -40 : width + 40,
+        y: Math.random() * height * 0.8,
+        vx: Math.cos(angle) * speed * dir,
+        vy: Math.sin(angle) * speed + speed * 0.15,
+        len: 90 + Math.random() * 60,
+        life: 0,
+        maxLife: 200,
+      });
+    }
 
     function seedNodes() {
       const count = Math.min(
@@ -74,6 +111,13 @@ export default function InteractiveBackground() {
     function step() {
       if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
+      frame++;
+
+      // occasionally spawn a fast "data stream" streak
+      if (frame >= nextStreakAt && streaks.length < MAX_STREAKS) {
+        spawnStreak();
+        nextStreakAt = frame + STREAK_MIN_GAP + Math.random() * (STREAK_MAX_GAP - STREAK_MIN_GAP);
+      }
 
       for (const node of nodes) {
         node.x += node.vx;
@@ -116,6 +160,51 @@ export default function InteractiveBackground() {
         ctx.arc(node.x, node.y, 1.6, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${NODE_COLOR}, 0.8)`;
         ctx.fill();
+      }
+
+      // live connections from the pointer itself — makes the cursor read
+      // as a node joining the network, not just a passive force
+      if (pointer.x > -1000) {
+        for (const node of nodes) {
+          const dist = Math.hypot(pointer.x - node.x, pointer.y - node.y);
+          if (dist > CURSOR_LINK_DISTANCE) continue;
+          const opacity = (1 - dist / CURSOR_LINK_DISTANCE) * 0.5;
+          ctx.strokeStyle = `rgba(${LINE_COLOR}, ${opacity})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(pointer.x, pointer.y);
+          ctx.lineTo(node.x, node.y);
+          ctx.stroke();
+        }
+        ctx.beginPath();
+        ctx.arc(pointer.x, pointer.y, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${NODE_COLOR}, 0.9)`;
+        ctx.fill();
+      }
+
+      // fast "data stream" light trails
+      for (let i = streaks.length - 1; i >= 0; i--) {
+        const s = streaks[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        s.life++;
+
+        const tailX = s.x - s.vx * (s.len / Math.hypot(s.vx, s.vy));
+        const tailY = s.y - s.vy * (s.len / Math.hypot(s.vx, s.vy));
+        const fade = 1 - s.life / s.maxLife;
+        const gradient = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
+        gradient.addColorStop(0, `rgba(${LINE_COLOR}, 0)`);
+        gradient.addColorStop(1, `rgba(255, 237, 213, ${Math.max(fade, 0) * 0.9})`);
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(s.x, s.y);
+        ctx.stroke();
+
+        const offCanvas =
+          s.x < -100 || s.x > width + 100 || s.y < -100 || s.y > height + 100;
+        if (offCanvas || s.life > s.maxLife) streaks.splice(i, 1);
       }
     }
 
