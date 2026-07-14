@@ -1,11 +1,15 @@
 import { useTranslations } from "next-intl";
+import HeroBackground from "./HeroBackground";
 
 export default function Hero() {
   const t = useTranslations("Hero");
 
   return (
-    <section className="min-h-screen bg-black text-white flex items-center px-6">
-      <div className="max-w-5xl mx-auto w-full">
+    <section className="relative min-h-screen bg-black text-white flex items-center px-6 overflow-hidden">
+      <div className="absolute inset-0 bg-aurora" />
+      <HeroBackground />
+
+      <div className="relative z-10 max-w-5xl mx-auto w-full">
         <span className="inline-block px-3 py-1 rounded-full border border-orange-500/40 text-orange-400 text-xs font-medium tracking-widest uppercase mb-8">
           {t("eyebrow")}
         </span>

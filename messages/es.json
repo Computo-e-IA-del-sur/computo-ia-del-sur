@@ -58,7 +58,8 @@
       "title": "Tu proyecto aquí",
       "subtitle": "¿Tienes una idea? Hablemos.",
       "cta": "Contáctanos →"
-    }
+    },
+    "openLabel": "abrir en una nueva pestaña"
   },
   "About": {
     "eyebrow": "Nosotros",
@@ -84,20 +85,39 @@
     "eyebrow": "Contacto",
     "titleLine1": "¿Tienes un proyecto",
     "titleLine2": "en mente?",
-    "subtitle": "Cuéntanos tu idea y te respondemos en menos de 24 horas.",
+    "subtitle": "Cuéntanos tu idea y recibe una propuesta personalizada.",
+    "trustPoints": [
+      "Respuesta en menos de 24 horas",
+      "Cotización sin compromiso",
+      "Conversación 100% confidencial"
+    ],
+    "directEmailLabel": "¿Prefieres escribirnos directo?",
     "namePlaceholder": "Tu nombre",
     "emailPlaceholder": "Correo electrónico",
     "subjectPlaceholder": "¿En qué podemos ayudarte?",
     "messagePlaceholder": "Cuéntanos más sobre tu proyecto...",
-    "submit": "Enviar mensaje",
+    "submit": "Cotizar mi proyecto",
+    "submitting": "Enviando...",
     "successTitle": "¡Mensaje enviado!",
-    "successBody": "Nos pondremos en contacto contigo pronto."
+    "successBody": "Nos pondremos en contacto contigo pronto.",
+    "consent": "Al enviar, aceptas nuestra <link>política de privacidad</link>.",
+    "errorMessage": "No se pudo enviar. Escríbenos directo a <email>hola@computoeiadelsur.com</email>."
   },
   "Footer": {
     "brand": "Computo e IA del Sur",
-    "rights": "© {year} — Todos los derechos reservados."
+    "rights": "© {year} — Todos los derechos reservados.",
+    "tagline": "Inteligencia Artificial, apps móviles y sistemas web para empresas que quieren ir en serio.",
+    "linksHeading": "Navegación",
+    "legalHeading": "Legal",
+    "privacyLink": "Política de Privacidad",
+    "termsLink": "Términos y Condiciones",
+    "contactHeading": "Contacto",
+    "location": "Sur de México"
   },
   "LanguageSwitcher": {
     "label": "Idioma"
+  },
+  "TechStack": {
+    "heading": "Construido con"
   }
 }

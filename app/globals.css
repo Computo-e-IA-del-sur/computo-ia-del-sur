@@ -11,3 +11,33 @@ body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+/* Slow-drifting radial gradients — the always-on ambient layer behind the
+   hero. Pure CSS (no JS, no canvas) so it costs nothing on first paint;
+   the canvas particle network layers on top of this. */
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(-4%, -2%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, 4%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-4%, -2%, 0) scale(1);
+  }
+}
+
+.bg-aurora {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(249, 115, 22, 0.16), transparent 45%),
+    radial-gradient(circle at 80% 15%, rgba(251, 191, 36, 0.1), transparent 40%),
+    radial-gradient(circle at 60% 75%, rgba(249, 115, 22, 0.12), transparent 45%);
+  animation: aurora-drift 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-aurora {
+    animation: none;
+  }
+}

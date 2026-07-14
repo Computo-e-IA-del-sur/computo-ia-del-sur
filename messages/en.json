@@ -58,7 +58,8 @@
       "title": "Your project here",
       "subtitle": "Got an idea? Let's talk.",
       "cta": "Contact us →"
-    }
+    },
+    "openLabel": "opens in a new tab"
   },
   "About": {
     "eyebrow": "About",
@@ -84,20 +85,39 @@
     "eyebrow": "Contact",
     "titleLine1": "Have a project",
     "titleLine2": "in mind?",
-    "subtitle": "Tell us your idea and we'll get back to you in less than 24 hours.",
+    "subtitle": "Tell us your idea and get a tailored proposal back.",
+    "trustPoints": [
+      "Reply within 24 hours",
+      "No-obligation quote",
+      "100% confidential conversation"
+    ],
+    "directEmailLabel": "Prefer to write us directly?",
     "namePlaceholder": "Your name",
     "emailPlaceholder": "Email address",
     "subjectPlaceholder": "How can we help you?",
     "messagePlaceholder": "Tell us more about your project...",
-    "submit": "Send message",
+    "submit": "Get my project quoted",
+    "submitting": "Sending...",
     "successTitle": "Message sent!",
-    "successBody": "We'll be in touch with you soon."
+    "successBody": "We'll be in touch with you soon.",
+    "consent": "By submitting, you agree to our <link>privacy policy</link>.",
+    "errorMessage": "Couldn't send it. Email us directly at <email>hola@computoeiadelsur.com</email>."
   },
   "Footer": {
     "brand": "Computo e IA del Sur",
-    "rights": "© {year} — All rights reserved."
+    "rights": "© {year} — All rights reserved.",
+    "tagline": "Artificial Intelligence, mobile apps, and web systems for businesses that mean business.",
+    "linksHeading": "Navigation",
+    "legalHeading": "Legal",
+    "privacyLink": "Privacy Policy",
+    "termsLink": "Terms & Conditions",
+    "contactHeading": "Contact",
+    "location": "Southern Mexico"
   },
   "LanguageSwitcher": {
     "label": "Language"
+  },
+  "TechStack": {
+    "heading": "Built with"
   }
 }

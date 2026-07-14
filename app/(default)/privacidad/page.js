@@ -16,6 +16,9 @@ export default function Privacidad() {
       
       <h2>4. Contacto</h2>
       <p>Si tienes dudas sobre esta política, puedes contactarnos en nuestro sitio web oficial: computoeiadelsur.com</p>
+
+      <h2>5. Formulario de contacto del sitio web</h2>
+      <p>Además de la aplicación móvil <em>Reportes Tren Ligero</em>, este sitio web (computoeiadelsur.com) incluye un formulario de contacto para solicitudes de cotización. Los datos que envíes ahí (nombre, correo electrónico y el mensaje) se utilizan únicamente para responder tu solicitud y no se venden ni se comparten con terceros, salvo con el proveedor que procesa el envío del formulario (Formspree) únicamente para hacernos llegar tu mensaje.</p>
     </div>
   );
 }

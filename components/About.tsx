@@ -20,8 +20,8 @@ export default function About() {
             <h2 className="text-4xl md:text-5xl font-bold text-black leading-tight mb-8">
               {t("title")}
             </h2>
-            <p className="text-gray-500 leading-relaxed mb-6">{t("paragraph1")}</p>
-            <p className="text-gray-500 leading-relaxed">{t("paragraph2")}</p>
+            <p className="text-gray-600 leading-relaxed mb-6">{t("paragraph1")}</p>
+            <p className="text-gray-600 leading-relaxed">{t("paragraph2")}</p>
           </div>
 
           <div className="flex flex-col gap-8 pt-14">
@@ -32,7 +32,7 @@ export default function About() {
                 </span>
                 <div>
                   <h3 className="font-bold text-black mb-1">{v.title}</h3>
-                  <p className="text-gray-500 text-sm">{v.description}</p>
+                  <p className="text-gray-600 text-sm">{v.description}</p>
                 </div>
               </div>
             ))}

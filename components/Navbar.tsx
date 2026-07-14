@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const t = useTranslations("Navbar");
@@ -17,15 +18,7 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur border-b border-white/10">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3">
-          <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-orange-500 text-white font-bold text-sm tracking-tight select-none">
-            CI
-          </span>
-          <span className="font-bold text-white text-base tracking-tight leading-tight">
-            Computo e IA<br />
-            <span className="text-white/40 text-xs font-normal">del Sur</span>
-          </span>
-        </a>
+        <Logo />
 
         <nav className="hidden md:flex items-center gap-8">
           {links.map((l) => (

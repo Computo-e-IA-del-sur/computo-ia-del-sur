@@ -58,7 +58,8 @@
       "title": "您的项目将在这里展示",
       "subtitle": "有想法吗?一起聊聊。",
       "cta": "联系我们 →"
-    }
+    },
+    "openLabel": "在新标签页中打开"
   },
   "About": {
     "eyebrow": "关于我们",
@@ -84,20 +85,39 @@
     "eyebrow": "联系我们",
     "titleLine1": "有项目",
     "titleLine2": "想法吗?",
-    "subtitle": "告诉我们您的想法,我们将在24小时内回复您。",
+    "subtitle": "告诉我们您的想法,获取专属方案。",
+    "trustPoints": [
+      "24小时内回复",
+      "免费报价,无需承诺",
+      "对话完全保密"
+    ],
+    "directEmailLabel": "更喜欢直接给我们写邮件?",
     "namePlaceholder": "您的姓名",
     "emailPlaceholder": "电子邮箱",
     "subjectPlaceholder": "我们能为您提供什么帮助?",
     "messagePlaceholder": "请详细介绍一下您的项目……",
-    "submit": "发送信息",
+    "submit": "获取项目报价",
+    "submitting": "发送中……",
     "successTitle": "信息已发送!",
-    "successBody": "我们会尽快与您联系。"
+    "successBody": "我们会尽快与您联系。",
+    "consent": "提交即表示您同意我们的<link>隐私政策</link>。",
+    "errorMessage": "发送失败,请直接发邮件至 <email>hola@computoeiadelsur.com</email>。"
   },
   "Footer": {
     "brand": "Computo e IA del Sur",
-    "rights": "© {year} — 版权所有。"
+    "rights": "© {year} — 版权所有。",
+    "tagline": "为认真发展的企业提供人工智能、移动应用与网络系统开发服务。",
+    "linksHeading": "导航",
+    "legalHeading": "法律信息",
+    "privacyLink": "隐私政策",
+    "termsLink": "条款与条件",
+    "contactHeading": "联系我们",
+    "location": "墨西哥南部"
   },
   "LanguageSwitcher": {
     "label": "语言"
+  },
+  "TechStack": {
+    "heading": "技术栈"
   }
 }

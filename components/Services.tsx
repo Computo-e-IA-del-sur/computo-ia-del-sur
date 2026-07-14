@@ -32,7 +32,7 @@ export default function Services() {
                 {s.number}
               </span>
               <h3 className="text-xl font-bold text-black mb-4">{s.title}</h3>
-              <p className="text-gray-500 leading-relaxed text-sm">{s.description}</p>
+              <p className="text-gray-600 leading-relaxed text-sm">{s.description}</p>
             </div>
           ))}
         </div>
