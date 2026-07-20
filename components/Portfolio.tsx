@@ -14,17 +14,19 @@ type Project = {
 // Structural data (URLs aren't translatable content, so it lives outside
 // messages/*.json). Keyed by project index — matches `Portfolio.projects`
 // in each locale file.
-// TODO: once "Mi Tren Ligero" is published on Google Play, swap this to:
-//   0: "https://play.google.com/store/apps/details?id=com.computoeiadelsur.reportestrenligero"
-// (package ID confirmed from the .aab; as of 2026-07-14 that URL still
-// 404s — the app isn't live yet). Meanwhile this points at the EAS
-// internal-distribution build page, which lets Android visitors install
-// the APK directly. NOTE: this URL is tied to one specific build
-// (f1068256-...) — generating a new EAS build later gets a new URL, so
-// this needs updating each time until the app ships to Play Store.
+//
+// "Mi Tren Ligero" (index 0) is now on Google Play's open-testing track, so
+// the store listing resolves. Package ID confirmed from the .aab.
+const PLAY_STORE_URL =
+  "https://play.google.com/store/apps/details?id=com.computoeiadelsur.reportestrenligero";
+
 const projectLinks: Record<number, string> = {
-  0: "https://expo.dev/accounts/arturo.vr/projects/mi-tren-ligero/builds/f1068256-abe6-479f-9d04-9260c1fb9099",
+  0: PLAY_STORE_URL,
 };
+
+// Projects live on the Play Store open-testing track — get the active
+// "Prueba Abierta" badge + a Google Play download button.
+const playStoreProjects = new Set<number>([0]);
 
 export default function Portfolio() {
   const t = useTranslations("Portfolio");
@@ -46,6 +48,7 @@ export default function Portfolio() {
           {projects.map((p, i) => {
             const href = projectLinks[i] ?? "#contacto";
             const isExternal = href.startsWith("http");
+            const onPlayStore = playStoreProjects.has(i);
             return (
               <Reveal key={p.title} delay={i * 0.1} className="group relative">
                 {/* radial glow behind the whole card, blooms on hover */}
@@ -64,7 +67,35 @@ export default function Portfolio() {
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent" />
                     <div className="relative w-28 h-56 rounded-[1.75rem] border-4 border-zinc-700 bg-zinc-900 shadow-2xl flex flex-col items-center pt-3 transition-transform duration-500 group-hover:-translate-y-1">
                       <div className="w-10 h-1.5 rounded-full bg-zinc-700 mb-4" />
-                      <span className="text-5xl">{p.emoji}</span>
+                      {onPlayStore ? (
+                        // Official app icon: navy squircle + white/cyan light-rail
+                        // silhouette, matching the Play Store listing.
+                        <div className="w-20 h-20 rounded-[22px] bg-gradient-to-br from-[#0a1f44] to-[#123a86] ring-1 ring-white/10 shadow-lg flex items-center justify-center">
+                          <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none" aria-hidden="true">
+                            {/* train body */}
+                            <path
+                              d="M15 7h18a6 6 0 0 1 6 6v21a4 4 0 0 1-4 4H13a4 4 0 0 1-4-4V13a6 6 0 0 1 6-6Z"
+                              fill="#ffffff"
+                            />
+                            {/* windshield */}
+                            <rect x="14" y="12" width="20" height="10" rx="3" fill="#22d3ee" />
+                            {/* headlights */}
+                            <circle cx="17" cy="29" r="2.4" fill="#22d3ee" />
+                            <circle cx="31" cy="29" r="2.4" fill="#22d3ee" />
+                            {/* front skirt */}
+                            <rect x="15" y="34" width="18" height="3" rx="1.5" fill="#0a1f44" />
+                            {/* legs on the rail */}
+                            <path
+                              d="M16 38l-3 4M32 38l3 4"
+                              stroke="#ffffff"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </div>
+                      ) : (
+                        <span className="text-5xl">{p.emoji}</span>
+                      )}
                     </div>
                   </div>
                   <div className="p-8">
@@ -72,7 +103,17 @@ export default function Portfolio() {
                       <span className="text-xs font-semibold px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20">
                         {p.tag}
                       </span>
-                      <span className="text-xs text-white/30">{p.status}</span>
+                      {onPlayStore ? (
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                          <span className="relative flex h-2 w-2">
+                            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                          </span>
+                          {p.status}
+                        </span>
+                      ) : (
+                        <span className="text-xs text-white/30">{p.status}</span>
+                      )}
                     </div>
                     <div className="flex items-center gap-2 mb-3">
                       <h3 className="text-2xl font-bold text-white">{p.title}</h3>
@@ -106,6 +147,28 @@ export default function Portfolio() {
                         </span>
                       ))}
                     </div>
+                    {onPlayStore && (
+                      // The whole card already links to the Play Store (see
+                      // SpotlightCard), so this is a styled CTA, not a nested
+                      // <a> — avoids invalid anchor-in-anchor markup.
+                      <span className="mt-6 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-orange-500 text-white text-sm font-semibold transition-colors group-hover:bg-orange-600">
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          className="w-4 h-4"
+                        >
+                          <path
+                            d="M12 3v11m0 0l-4-4m4 4l4-4M5 21h14"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        {t("downloadPlayStore")}
+                      </span>
+                    )}
                   </div>
                 </SpotlightCard>
               </Reveal>

@@ -10,7 +10,7 @@ export default function Hero() {
       <HeroBackground />
 
       <div className="relative z-10 max-w-5xl mx-auto w-full">
-        <span className="inline-block px-3 py-1 rounded-full border border-orange-500/40 text-orange-400 text-xs font-medium tracking-widest uppercase mb-8">
+        <span className="inline-flex flex-wrap items-center justify-center min-w-0 px-4 py-2 rounded-2xl sm:rounded-full border border-orange-500/40 bg-orange-500/10 text-orange-400 text-[10px] sm:text-xs md:text-sm tracking-wider uppercase text-center break-words [overflow-wrap:anywhere] max-w-full mb-8">
           {t("eyebrow")}
         </span>
         <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight mb-8">

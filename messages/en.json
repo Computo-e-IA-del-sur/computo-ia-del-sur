@@ -50,7 +50,7 @@
         "title": "Mi Tren Ligero",
         "description": "Official companion app for Mexico City's Light Rail Line 1. Real-time schedules, stations, and service reports.",
         "tech": ["React Native", "Expo", "Supabase"],
-        "status": "In testing",
+        "status": "Open Testing (Play Store)",
         "emoji": "🚊"
       }
     ],
@@ -59,7 +59,8 @@
       "subtitle": "Got an idea? Let's talk.",
       "cta": "Contact us →"
     },
-    "openLabel": "opens in a new tab"
+    "openLabel": "opens in a new tab",
+    "downloadPlayStore": "Get it on Google Play"
   },
   "About": {
     "eyebrow": "About",

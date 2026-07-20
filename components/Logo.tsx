@@ -1,79 +1,83 @@
-"use client";
-
-import { useId } from "react";
+import Link from "next/link";
 
 type LogoProps = {
-  /** Hides the wordmark and renders only the mark — for tight spaces (favicons, mobile). */
+  /** Oculta el texto y muestra solo el ícono — para espacios reducidos (favicons, móvil). */
   markOnly?: boolean;
   className?: string;
 };
 
 /**
- * Abstract neural-triad mark: three connected nodes (a network) with a
- * satellite node orbiting the core — reads as both "AI network" and a
- * compass pointing south. Deliberately mark-only (no bounding box/badge)
- * to avoid the generic "app icon" look.
+ * Componente Server Estático.
+ * Diseño: Hexágono Neuronal (Concepto 2) adaptado al tema naranja actual de la web.
  */
 export default function Logo({ markOnly = false, className = "" }: LogoProps) {
-  const gradientId = useId();
+  const gradientId = "hex-neural-orange";
 
   return (
-    <a
-      href="#"
+    <Link
+      href="/"
       className={`group flex items-center gap-3 ${className}`}
-      aria-label="Computo e IA del Sur — inicio"
+      aria-label="computoeiadelsur - inicio"
     >
       <svg
-        width="34"
-        height="34"
+        width="38"
+        height="38"
         viewBox="0 0 40 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="shrink-0 transition-[transform,filter] duration-500 ease-out group-hover:rotate-[8deg] group-hover:drop-shadow-[0_0_8px_rgba(251,146,60,0.65)]"
+        className="shrink-0 transition-transform duration-300 group-hover:scale-105"
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id={`${gradientId}-mark`} x1="4" y1="6" x2="34" y2="32" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#fb923c" />
-            <stop offset="100%" stopColor="#ea580c" />
+          <linearGradient id={gradientId} x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#fb923c" /> {/* Naranja brillante */}
+            <stop offset="100%" stopColor="#ea580c" /> {/* Naranja profundo */}
           </linearGradient>
         </defs>
 
-        {/* orbit ring around the core node */}
-        <ellipse
-          cx="20"
-          cy="9.5"
-          rx="7.5"
-          ry="3.6"
-          stroke={`url(#${gradientId}-mark)`}
-          strokeWidth="0.8"
-          strokeOpacity="0.45"
-          transform="rotate(-18 20 9.5)"
+        {/* Perímetro del Hexágono */}
+        <polygon
+          points="20,4 34,12 34,28 20,36 6,28 6,12"
+          stroke={`url(#${gradientId})`}
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+          fill="none"
         />
 
-        {/* edges */}
-        <line x1="20" y1="8.5" x2="8.5" y2="27.5" stroke={`url(#${gradientId}-mark)`} strokeWidth="1.1" strokeOpacity="0.55" strokeLinecap="round" />
-        <line x1="20" y1="8.5" x2="29.5" y2="29.5" stroke={`url(#${gradientId}-mark)`} strokeWidth="1.1" strokeOpacity="0.55" strokeLinecap="round" />
-        <line x1="8.5" y1="27.5" x2="29.5" y2="29.5" stroke={`url(#${gradientId}-mark)`} strokeWidth="1.1" strokeOpacity="0.3" strokeLinecap="round" />
-        <line x1="20" y1="8.5" x2="31.5" y2="10.5" stroke={`url(#${gradientId}-mark)`} strokeWidth="0.9" strokeOpacity="0.5" strokeLinecap="round" strokeDasharray="1.6 2" />
+        {/* Conexiones Neuronales Internas (Líneas cruzadas) */}
+        <line x1="6" y1="12" x2="34" y2="28" stroke={`url(#${gradientId})`} strokeWidth="1" strokeOpacity="0.4" />
+        <line x1="6" y1="28" x2="34" y2="12" stroke={`url(#${gradientId})`} strokeWidth="1" strokeOpacity="0.4" />
+        <line x1="20" y1="4" x2="20" y2="36" stroke={`url(#${gradientId})`} strokeWidth="1" strokeOpacity="0.4" />
 
-        {/* nodes */}
-        <circle cx="8.5" cy="27.5" r="2.1" fill={`url(#${gradientId}-mark)`} fillOpacity="0.85" />
-        <circle cx="29.5" cy="29.5" r="2.1" fill={`url(#${gradientId}-mark)`} fillOpacity="0.85" />
-        <circle cx="31.5" cy="10.5" r="1.3" fill={`url(#${gradientId}-mark)`} fillOpacity="0.6" />
-        <circle cx="20" cy="8.5" r="3.1" fill={`url(#${gradientId}-mark)`} />
+        {/* Triángulo central para dar profundidad geométrica */}
+        <polygon
+          points="20,12 27,24 13,24"
+          stroke={`url(#${gradientId})`}
+          strokeWidth="1"
+          strokeOpacity="0.5"
+          fill="none"
+        />
+
+        {/* Nodos Exteriores (Vértices) */}
+        <circle cx="20" cy="4" r="2.5" fill={`url(#${gradientId})`} />
+        <circle cx="34" cy="12" r="2.5" fill={`url(#${gradientId})`} />
+        <circle cx="34" cy="28" r="2.5" fill={`url(#${gradientId})`} />
+        <circle cx="20" cy="36" r="2.5" fill={`url(#${gradientId})`} />
+        <circle cx="6" cy="28" r="2.5" fill={`url(#${gradientId})`} />
+        <circle cx="6" cy="12" r="2.5" fill={`url(#${gradientId})`} />
+
+        {/* Nodo Central (Núcleo) */}
+        <circle cx="20" cy="20" r="3.5" fill={`url(#${gradientId})`} />
       </svg>
 
       {!markOnly && (
         <span className="leading-tight">
-          <span className="block font-semibold text-white text-[15px] tracking-tight">
-            Computo e IA
-          </span>
-          <span className="block text-[10.5px] font-medium tracking-[0.2em] uppercase text-orange-400/90 transition-colors duration-500 group-hover:text-orange-300">
-            del Sur
+          {/* Texto en minúsculas como en el Concepto 2 */}
+          <span className="block font-semibold text-[19px] tracking-tight text-white">
+            computo<span className="text-[#fb923c]">eiadelsur</span>
           </span>
         </span>
       )}
-    </a>
+    </Link>
   );
 }

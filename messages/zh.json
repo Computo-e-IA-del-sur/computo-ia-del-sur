@@ -50,7 +50,7 @@
         "title": "Mi Tren Ligero",
         "description": "墨西哥城1号轻轨线路官方查询应用,提供实时时刻表、车站信息及运行报告。",
         "tech": ["React Native", "Expo", "Supabase"],
-        "status": "测试中",
+        "status": "公开测试 (Play Store)",
         "emoji": "🚊"
       }
     ],
@@ -59,7 +59,8 @@
       "subtitle": "有想法吗?一起聊聊。",
       "cta": "联系我们 →"
     },
-    "openLabel": "在新标签页中打开"
+    "openLabel": "在新标签页中打开",
+    "downloadPlayStore": "在 Google Play 下载"
   },
   "About": {
     "eyebrow": "关于我们",

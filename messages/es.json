@@ -50,7 +50,7 @@
         "title": "Mi Tren Ligero",
         "description": "Aplicación oficial de consulta para el Tren Ligero Línea 1 de la CDMX. Horarios, estaciones y reportes en tiempo real.",
         "tech": ["React Native", "Expo", "Supabase"],
-        "status": "En pruebas",
+        "status": "Prueba Abierta (Play Store)",
         "emoji": "🚊"
       }
     ],
@@ -59,7 +59,8 @@
       "subtitle": "¿Tienes una idea? Hablemos.",
       "cta": "Contáctanos →"
     },
-    "openLabel": "abrir en una nueva pestaña"
+    "openLabel": "abrir en una nueva pestaña",
+    "downloadPlayStore": "Descargar en Google Play"
   },
   "About": {
     "eyebrow": "Nosotros",
