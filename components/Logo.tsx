@@ -4,24 +4,25 @@ type LogoProps = {
   /** Oculta el texto y muestra solo el ícono — para espacios reducidos (favicons, móvil). */
   markOnly?: boolean;
   className?: string;
+  light?: boolean;
 };
 
 /**
- * Componente Server Estático.
- * Diseño: Hexágono Neuronal (Concepto 2) adaptado al tema naranja actual de la web.
+ * Componente Logo: Computo e IA del Sur.
+ * Concepto: "El Vector del Sur" — Convergencia entre dirección, tecnología y redes inteligentes.
  */
-export default function Logo({ markOnly = false, className = "" }: LogoProps) {
-  const gradientId = "hex-neural-orange";
+export default function Logo({ markOnly = false, className = "", light = false }: LogoProps) {
+  const gradientId = "brand-vector-gradient";
+  const glowFilterId = "brand-glow-filter";
 
   return (
     <Link
       href="/"
       className={`group flex items-center gap-3 ${className}`}
-      aria-label="computoeiadelsur - inicio"
-    >
+      aria-label="Computo e IA del Sur - inicio">
       <svg
-        width="38"
-        height="38"
+        width="40"
+        height="40"
         viewBox="0 0 40 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -29,52 +30,57 @@ export default function Logo({ markOnly = false, className = "" }: LogoProps) {
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id={gradientId} x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#fb923c" /> {/* Naranja brillante */}
-            <stop offset="100%" stopColor="#ea580c" /> {/* Naranja profundo */}
+          <linearGradient id={gradientId} x1="2" y1="2" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+            {/* Gradiente principal en tonos naranjas premium */}
+            <stop offset="0%" stopColor="#FDBA74" />
+            <stop offset="100%" stopColor="#EA580C" />
           </linearGradient>
+          <filter id={glowFilterId} x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="1" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
 
-        {/* Perímetro del Hexágono */}
-        <polygon
-          points="20,4 34,12 34,28 20,36 6,28 6,12"
+        {/* Marco de Brújula Tecnológica (Vector Sur) - rgba actualizado a tono naranja oscuro (234, 88, 12) para modo claro */}
+        <path
+          d="M20 2L37 16L20 38L3 16Z"
           stroke={`url(#${gradientId})`}
           strokeWidth="1.5"
           strokeLinejoin="round"
-          fill="none"
+          fill={light ? "rgba(234, 88, 12, 0.05)" : "rgba(255, 255, 255, 0.03)"}
         />
 
-        {/* Conexiones Neuronales Internas (Líneas cruzadas) */}
-        <line x1="6" y1="12" x2="34" y2="28" stroke={`url(#${gradientId})`} strokeWidth="1" strokeOpacity="0.4" />
-        <line x1="6" y1="28" x2="34" y2="12" stroke={`url(#${gradientId})`} strokeWidth="1" strokeOpacity="0.4" />
-        <line x1="20" y1="4" x2="20" y2="36" stroke={`url(#${gradientId})`} strokeWidth="1" strokeOpacity="0.4" />
-
-        {/* Triángulo central para dar profundidad geométrica */}
-        <polygon
-          points="20,12 27,24 13,24"
+        {/* Conexiones Neuronales Secundarias */}
+        <path
+          d="M20 2V38M3 16H37"
           stroke={`url(#${gradientId})`}
-          strokeWidth="1"
-          strokeOpacity="0.5"
-          fill="none"
+          strokeWidth="0.5"
+          strokeOpacity="0.4"
         />
 
-        {/* Nodos Exteriores (Vértices) */}
-        <circle cx="20" cy="4" r="2.5" fill={`url(#${gradientId})`} />
-        <circle cx="34" cy="12" r="2.5" fill={`url(#${gradientId})`} />
-        <circle cx="34" cy="28" r="2.5" fill={`url(#${gradientId})`} />
-        <circle cx="20" cy="36" r="2.5" fill={`url(#${gradientId})`} />
-        <circle cx="6" cy="28" r="2.5" fill={`url(#${gradientId})`} />
-        <circle cx="6" cy="12" r="2.5" fill={`url(#${gradientId})`} />
+        {/* Nodos de Procesamiento (Naranja sólido) */}
+        <circle cx="20" cy="2" r="2" fill="#F97316" />
+        <circle cx="37" cy="16" r="2" fill="#F97316" />
+        <circle cx="3" cy="16" r="2" fill="#F97316" />
 
-        {/* Nodo Central (Núcleo) */}
-        <circle cx="20" cy="20" r="3.5" fill={`url(#${gradientId})`} />
+        {/* Nodo Sur (Énfasis en Dirección con Glow Naranja) */}
+        <circle cx="20" cy="38" r="3" fill="#EA580C" filter={`url(#${glowFilterId})`} />
+        
+        {/* Cambiado a blanco para generar mayor contraste sobre el naranja */}
+        <circle cx="20" cy="38" r="1.2" fill="#FFFFFF" />
+
+        {/* Núcleo de IA Central */}
+        <circle cx="20" cy="16" r="4.5" fill={`url(#${gradientId})`} filter={`url(#${glowFilterId})`} />
+        <path d="M18 16L20 14L22 16L20 18Z" fill="white" />
       </svg>
 
       {!markOnly && (
-        <span className="leading-tight">
-          {/* Texto en minúsculas como en el Concepto 2 */}
-          <span className="block font-semibold text-[19px] tracking-tight text-white">
-            computo<span className="text-[#fb923c]">eiadelsur</span>
+        <span className="leading-tight select-none">
+          <span className={`block font-semibold text-[20px] tracking-tight ${light ? "text-slate-900" : "text-white"}`}>
+            Computo e IA <span className="text-orange-500">del Sur</span>
           </span>
         </span>
       )}
