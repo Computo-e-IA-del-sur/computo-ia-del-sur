@@ -11,12 +11,6 @@ type Project = {
   emoji: string;
 };
 
-// Structural data (URLs aren't translatable content, so it lives outside
-// messages/*.json). Keyed by project index — matches `Portfolio.projects`
-// in each locale file.
-//
-// "Mi Tren Ligero" (index 0) is now on Google Play's open-testing track, so
-// the store listing resolves. Package ID confirmed from the .aab.
 const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.computoeiadelsur.reportestrenligero";
 
@@ -24,8 +18,6 @@ const projectLinks: Record<number, string> = {
   0: PLAY_STORE_URL,
 };
 
-// Projects live on the Play Store open-testing track — get the active
-// "Prueba Abierta" badge + a Google Play download button.
 const playStoreProjects = new Set<number>([0]);
 
 export default function Portfolio() {
@@ -33,13 +25,14 @@ export default function Portfolio() {
   const projects = t.raw("projects") as Project[];
 
   return (
-    <section id="portafolio" className="py-32 px-6 bg-zinc-950 text-white">
+    <section id="portafolio" className="py-28 md:py-32 px-6 bg-[#051015] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(14,42,53,1),rgba(5,16,21,1))] bg-swarm-grid text-[#E2E8F0]">
       <div className="max-w-6xl mx-auto">
-        <Reveal className="mb-20">
-          <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-4">
+        <Reveal className="mb-14">
+          <span className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#2DBEED]/10 text-[#2DBEED] border border-[#2DBEED]/30 text-xs sm:text-sm tracking-widest uppercase mb-4 font-mono">
+            <span className="w-2 h-2 rounded-full bg-[#2DBEED] animate-pulse" />
             {t("eyebrow")}
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight">
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#2DBEED] to-[#C9933B]">
             {t("title")}
           </h2>
         </Reveal>
@@ -51,43 +44,38 @@ export default function Portfolio() {
             const onPlayStore = playStoreProjects.has(i);
             return (
               <Reveal key={p.title} delay={i * 0.1} className="group relative">
-                {/* radial glow behind the whole card, blooms on hover */}
+                {/* Glow en cian marca detrás de la tarjeta al hacer hover */}
                 <div
                   aria-hidden="true"
-                  className="absolute -inset-4 rounded-[2rem] bg-orange-500/0 blur-2xl transition-all duration-500 -z-10 group-hover:bg-orange-500/20"
+                  className="absolute -inset-4 rounded-[2rem] bg-[#2DBEED]/0 blur-2xl transition-all duration-500 -z-10 group-hover:bg-[#2DBEED]/20"
                 />
                 <SpotlightCard
                   href={href}
                   external={isExternal}
                   ariaLabel={isExternal ? `${p.title} — ${t("openLabel")}` : p.title}
-                  className="rounded-2xl border border-white/10 overflow-hidden hover:border-orange-500/40"
+                  className="relative overflow-hidden bg-[#0A1E27]/40 backdrop-blur-md border border-[#2DBEED]/15 rounded-lg group transition-all duration-500 ease-out hover:-translate-y-2 hover:bg-[#0A1E27]/60 hover:border-[#C9933B]/50 hover:shadow-[0_0_40px_rgba(201,147,59,0.15)]"
                 >
-                  {/* smartphone-outline mockup instead of a flat emoji tile */}
-                  <div className="relative h-64 flex items-center justify-center bg-gradient-to-br from-zinc-900 to-black overflow-hidden">
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent" />
-                    <div className="relative w-28 h-56 rounded-[1.75rem] border-4 border-zinc-700 bg-zinc-900 shadow-2xl flex flex-col items-center pt-3 transition-transform duration-500 group-hover:-translate-y-1">
-                      <div className="w-10 h-1.5 rounded-full bg-zinc-700 mb-4" />
+                  {/* Pseudo-elemento decorativo de nodo de panal de datos (top-right node) */}
+                  <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-bl from-[#C9933B]/20 to-transparent border-t border-r border-[#C9933B] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
+
+                  <div className="relative h-64 flex items-center justify-center bg-gradient-to-br from-[#0E2A35] to-[#0A1E27] overflow-hidden">
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#2DBEED]/10 to-transparent" />
+                    <div className="relative w-28 h-56 rounded-2xl border-4 border-[#2DBEED]/30 bg-[#0E2A35] shadow-2xl flex flex-col items-center pt-3 transition-transform duration-500 group-hover:-translate-y-1">
+                      <div className="w-10 h-1.5 rounded-full bg-[#2DBEED]/40 mb-4" />
                       {onPlayStore ? (
-                        // Official app icon: navy squircle + white/cyan light-rail
-                        // silhouette, matching the Play Store listing.
-                        <div className="w-20 h-20 rounded-[22px] bg-gradient-to-br from-[#0a1f44] to-[#123a86] ring-1 ring-white/10 shadow-lg flex items-center justify-center">
+                        <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-[#0A1E27] to-[#0E2A35] ring-1 ring-[#2DBEED]/30 shadow-lg flex items-center justify-center">
                           <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none" aria-hidden="true">
-                            {/* train body */}
                             <path
                               d="M15 7h18a6 6 0 0 1 6 6v21a4 4 0 0 1-4 4H13a4 4 0 0 1-4-4V13a6 6 0 0 1 6-6Z"
-                              fill="#ffffff"
+                              fill="#E2E8F0"
                             />
-                            {/* windshield */}
-                            <rect x="14" y="12" width="20" height="10" rx="3" fill="#22d3ee" />
-                            {/* headlights */}
-                            <circle cx="17" cy="29" r="2.4" fill="#22d3ee" />
-                            <circle cx="31" cy="29" r="2.4" fill="#22d3ee" />
-                            {/* front skirt */}
-                            <rect x="15" y="34" width="18" height="3" rx="1.5" fill="#0a1f44" />
-                            {/* legs on the rail */}
+                            <rect x="14" y="12" width="20" height="10" rx="3" fill="#2DBEED" />
+                            <circle cx="17" cy="29" r="2.4" fill="#2DBEED" />
+                            <circle cx="31" cy="29" r="2.4" fill="#2DBEED" />
+                            <rect x="15" y="34" width="18" height="3" rx="1.5" fill="#0E2A35" />
                             <path
                               d="M16 38l-3 4M32 38l3 4"
-                              stroke="#ffffff"
+                              stroke="#E2E8F0"
                               strokeWidth="2.5"
                               strokeLinecap="round"
                             />
@@ -98,31 +86,32 @@ export default function Portfolio() {
                       )}
                     </div>
                   </div>
-                  <div className="p-8">
+
+                  <div className="p-6 sm:p-8">
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-semibold px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20">
+                      <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#2DBEED]/10 text-[#2DBEED] border border-[#2DBEED]/20 font-mono tracking-widest uppercase">
                         {p.tag}
                       </span>
                       {onPlayStore ? (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-[#C9933B]/15 text-[#C9933B] border border-[#C9933B]/30 font-mono tracking-widest uppercase">
                           <span className="relative flex h-2 w-2">
-                            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-                            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                            <span className="absolute inline-flex h-full w-full rounded-full bg-[#C9933B] opacity-75 animate-ping" />
+                            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#C9933B]" />
                           </span>
                           {p.status}
                         </span>
                       ) : (
-                        <span className="text-xs text-white/30">{p.status}</span>
+                        <span className="text-xs text-slate-400 font-mono tracking-widest uppercase">{p.status}</span>
                       )}
                     </div>
                     <div className="flex items-center gap-2 mb-3">
-                      <h3 className="text-2xl font-bold text-white">{p.title}</h3>
+                      <h3 className="text-2xl font-bold text-slate-100">{p.title}</h3>
                       {isExternal && (
                         <svg
                           aria-hidden="true"
                           viewBox="0 0 24 24"
                           fill="none"
-                          className="w-4 h-4 text-orange-400 -translate-y-2 translate-x-1 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0"
+                          className="w-4 h-4 text-[#2DBEED] -translate-y-2 translate-x-1 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0"
                         >
                           <path
                             d="M7 17L17 7M17 7H8M17 7V16"
@@ -134,24 +123,21 @@ export default function Portfolio() {
                         </svg>
                       )}
                     </div>
-                    <p className="text-white/50 text-sm leading-relaxed mb-6">
+                    <p className="text-slate-400 text-sm leading-relaxed mb-6">
                       {p.description}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {p.tech.map((tech) => (
                         <span
                           key={tech}
-                          className="text-xs px-3 py-1 rounded-full bg-white/5 text-white/40 border border-white/10"
+                          className="text-xs px-3 py-1 rounded-full bg-[#0E2A35] text-slate-300 border border-[#2DBEED]/20 font-mono tracking-widest uppercase"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
                     {onPlayStore && (
-                      // The whole card already links to the Play Store (see
-                      // SpotlightCard), so this is a styled CTA, not a nested
-                      // <a> — avoids invalid anchor-in-anchor markup.
-                      <span className="mt-6 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-orange-500 text-white text-sm font-semibold transition-colors group-hover:bg-orange-600">
+                      <span className="mt-6 btn-swarm-primary px-6 py-3 text-center tracking-[0.2em] uppercase text-xs font-mono inline-flex items-center justify-center gap-2 shadow-lg">
                         <svg
                           aria-hidden="true"
                           viewBox="0 0 24 24"
@@ -176,11 +162,11 @@ export default function Portfolio() {
           })}
 
           <Reveal delay={projects.length * 0.1}>
-            <div className="animate-pulse rounded-2xl border-2 border-dashed border-white/10 flex items-center justify-center min-h-64 text-center p-8 hover:border-orange-500/40 transition-colors">
+            <div className="animate-pulse bg-[#0A1E27]/40 backdrop-blur-md border-2 border-dashed border-[#2DBEED]/20 rounded-lg flex items-center justify-center min-h-64 text-center p-8 hover:border-[#C9933B]/50 transition-colors">
               <div>
-                <p className="text-white/20 font-semibold text-lg">{t("empty.title")}</p>
-                <p className="text-white/20 text-sm mt-2">{t("empty.subtitle")}</p>
-                <a href="#contacto" className="inline-block mt-4 text-orange-500 text-sm hover:text-orange-400">
+                <p className="text-slate-300 font-semibold text-lg">{t("empty.title")}</p>
+                <p className="text-slate-400 text-sm mt-2">{t("empty.subtitle")}</p>
+                <a href="#contacto" className="inline-block mt-4 text-[#2DBEED] text-sm font-medium font-mono tracking-widest uppercase hover:text-[#C9933B]">
                   {t("empty.cta")}
                 </a>
               </div>
