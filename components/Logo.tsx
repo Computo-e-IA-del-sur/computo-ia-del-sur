@@ -70,18 +70,41 @@ export default function Logo({
   return (
     <Link
       href="/"
-      className={`inline-flex items-center shrink-0 bg-transparent transition-transform duration-300 hover:scale-[1.02] ${className}`}
+      className={`inline-flex items-center shrink-0 bg-transparent transition-transform duration-300 hover:scale-[1.02] gap-3 ${className}`}
       aria-label="CÓMPUTO E IA DEL SUR - Inicio"
     >
-      <Image
-        src={config.src}
-        alt={config.alt}
-        width={finalWidth}
-        height={finalHeight}
-        priority={priority}
-        quality={quality}
-        className={`h-16 md:h-20 w-auto object-contain ${imageClassName}`}
-      />
+      {selectedVariant === "full" ? (
+        <>
+          <Image
+            src={LOGO_CONFIG.icon.src}
+            alt={LOGO_CONFIG.icon.alt}
+            width={LOGO_CONFIG.icon.defaultWidth}
+            height={LOGO_CONFIG.icon.defaultHeight}
+            priority={priority}
+            quality={quality}
+            className={`h-10 md:h-14 w-auto object-contain ${imageClassName}`}
+          />
+          <Image
+            src={LOGO_CONFIG.text.src}
+            alt={LOGO_CONFIG.text.alt}
+            width={LOGO_CONFIG.text.defaultWidth}
+            height={LOGO_CONFIG.text.defaultHeight}
+            priority={priority}
+            quality={quality}
+            className={`h-7 md:h-9 w-auto object-contain ${imageClassName}`}
+          />
+        </>
+      ) : (
+        <Image
+          src={config.src}
+          alt={config.alt}
+          width={finalWidth}
+          height={finalHeight}
+          priority={priority}
+          quality={quality}
+          className={`h-16 md:h-20 w-auto object-contain ${imageClassName}`}
+        />
+      )}
     </Link>
   );
 }

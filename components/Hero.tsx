@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import HeroBackground from "./HeroBackground";
-import Logo from "./Logo";
 
 export default function Hero() {
   const t = useTranslations("Hero");
@@ -23,21 +22,21 @@ export default function Hero() {
       />
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
-        {/* Grid de 2 Columnas amplio con gap-12 lg:gap-20 para maxima respiracion */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        {/* Grid de 2 Columnas amplio */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] xl:grid-cols-2 gap-12 lg:gap-8 xl:gap-20 items-center">
           
           {/* Columna Izquierda: Mensaje Principal con Flexbox amplio */}
           <div className="flex flex-col items-start justify-center gap-6 lg:gap-8">
             
-            {/* Pastilla Superior (Badge) sin roturas (w-fit whitespace-nowrap) */}
-            <span className="inline-flex w-fit items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#2DBEED]/10 text-[#2DBEED] border border-[#2DBEED]/30 text-xs sm:text-sm tracking-widest uppercase font-mono whitespace-nowrap shadow-sm font-medium">
+            {/* Pastilla Superior (Badge) sin roturas */}
+            <span className="inline-flex w-fit items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#2DBEED]/10 text-[#2DBEED] border border-[#2DBEED]/30 text-xs sm:text-sm tracking-widest uppercase font-mono shadow-sm font-medium flex-wrap">
               <span className="w-2 h-2 rounded-full bg-[#2DBEED] animate-pulse" />
               {t("eyebrow")}
             </span>
 
             {/* Título Principal con leading-tight y alto impacto */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-balance max-w-2xl">
-              <span className="text-slate-100">Construimos el </span>
+            <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight w-full max-w-2xl">
+              <span className="text-slate-100">Construimos el</span><br />
               <span className="text-[#2DBEED]">futuro digital</span><br />
               <span className="text-[#C9933B]">de tu empresa.</span>
             </h1>
@@ -48,11 +47,11 @@ export default function Hero() {
             </p>
 
             {/* Botones de Acción con whitespace-nowrap y flex-row con gap-4 sm:gap-6 */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto pt-2">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-4 xl:gap-6 w-full sm:w-auto pt-2">
               {/* Primary CTA (Ver Servicios) */}
               <a
                 href="#servicios"
-                className="btn-swarm-primary whitespace-nowrap inline-flex items-center justify-center w-full sm:w-auto px-8 py-3.5 text-center tracking-[0.2em] uppercase text-xs sm:text-sm font-bold shadow-lg"
+                className="btn-swarm-primary whitespace-nowrap inline-flex items-center justify-center w-full sm:w-auto px-8 lg:px-6 xl:px-8 py-3.5 lg:py-3 xl:py-3.5 text-center tracking-[0.2em] uppercase text-xs sm:text-sm lg:text-xs xl:text-sm font-bold shadow-lg"
               >
                 {t("ctaPrimary")}
               </a>
@@ -60,7 +59,7 @@ export default function Hero() {
               {/* Secondary CTA (Contacto) */}
               <a
                 href="#contacto"
-                className="btn-swarm-secondary whitespace-nowrap inline-flex items-center justify-center w-full sm:w-auto px-8 py-3.5 text-center tracking-[0.15em] uppercase text-xs sm:text-sm font-semibold"
+                className="btn-swarm-secondary whitespace-nowrap inline-flex items-center justify-center w-full sm:w-auto px-8 lg:px-6 xl:px-8 py-3.5 lg:py-3 xl:py-3.5 text-center tracking-[0.15em] uppercase text-xs sm:text-sm lg:text-xs xl:text-sm font-semibold"
               >
                 {t("ctaSecondary")}
               </a>
@@ -68,13 +67,13 @@ export default function Hero() {
           </div>
 
           {/* Columna Derecha: Terminal "Queen Node" Descomprimida (p-8 sm:p-10) */}
-          <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
+          <div className="relative mx-auto w-full max-w-lg lg:max-w-none min-w-0">
             {/* Esferas de luz sutiles de fondo (Aura Cyan & Gold) */}
             <div className="absolute -top-10 -left-10 w-64 h-64 bg-[#2DBEED]/20 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-[#C9933B]/20 rounded-full blur-3xl pointer-events-none" />
 
             {/* Contenedor Terminal Queen Node con p-8 sm:p-10 */}
-            <div className="group relative rounded-xl border border-[#2DBEED]/30 bg-[#0A1E27]/40 backdrop-blur-md p-8 sm:p-10 shadow-[0_20px_50px_rgba(14,42,53,0.8)] overflow-hidden transition-all duration-500">
+            <div className="group relative rounded-xl border border-[#2DBEED]/30 bg-[#0A1E27]/40 backdrop-blur-md p-6 lg:p-8 shadow-[0_20px_50px_rgba(14,42,53,0.8)] overflow-hidden transition-all duration-500">
               {/* Pseudo-elemento decorativo de nodo de panal top-right */}
               <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-bl from-[#C9933B]/20 to-transparent border-t border-r border-[#C9933B] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -92,34 +91,22 @@ export default function Hero() {
 
               {/* Contenido Visual Interactivo con space-y-6 */}
               <div className="space-y-6">
-                {/* Ficha 1: Estatus de Modelo IA */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 sm:p-6 rounded-lg bg-[#0E2A35]/60 border border-[#2DBEED]/20 gap-4">
-                  <div className="flex items-center gap-4">
-                    <Logo variant="icon" width={44} height={44} priority quality={100} />
-                    <div>
-                      <p className="text-sm font-bold text-white">Inteligencia Artificial</p>
-                      <p className="text-xs text-[#2DBEED] font-mono tracking-widest uppercase">Modelos Neuronales & Cloud</p>
-                    </div>
-                  </div>
-                  <span className="text-xs font-mono font-bold tracking-widest uppercase px-3.5 py-1.5 rounded-full bg-[#C9933B]/20 text-[#C9933B] border border-[#C9933B]/40 whitespace-nowrap">
-                    99.4% ACCURACY
-                  </span>
-                </div>
+
 
                 {/* Ficha 2: Métricas de Rendimiento */}
                 <div className="grid grid-cols-2 gap-4 sm:gap-6">
-                  <div className="p-5 sm:p-6 rounded-lg bg-[#0E2A35]/60 border border-[#2DBEED]/20">
+                  <div className="p-4 sm:p-6 rounded-lg bg-[#0E2A35]/60 border border-[#2DBEED]/20">
                     <p className="text-xs text-[#94A3B8] mb-1.5 font-mono tracking-widest uppercase">Desarrollo Web & Apps</p>
-                    <p className="text-xl font-extrabold text-[#2DBEED]">Multi-Plataforma</p>
+                    <p className="text-lg sm:text-xl font-extrabold text-[#2DBEED]">Multi-Plataforma</p>
                   </div>
-                  <div className="p-5 sm:p-6 rounded-lg bg-[#0E2A35]/60 border border-[#2DBEED]/20">
+                  <div className="p-4 sm:p-6 rounded-lg bg-[#0E2A35]/60 border border-[#2DBEED]/20">
                     <p className="text-xs text-[#94A3B8] mb-1.5 font-mono tracking-widest uppercase">Región Cobertura</p>
-                    <p className="text-xl font-extrabold text-[#C9933B]">Sur de México</p>
+                    <p className="text-lg sm:text-xl font-extrabold text-[#C9933B]">Sur de la Ciudad de México</p>
                   </div>
                 </div>
 
                 {/* Ficha 3: Logs de Procesamiento con Parpadeo sutil animate-pulse */}
-                <div className="p-5 sm:p-6 rounded-lg bg-[#06171b]/80 border border-[#2DBEED]/20 font-mono text-xs tracking-widest uppercase space-y-2.5">
+                <div className="p-4 sm:p-6 rounded-lg bg-[#06171b]/80 border border-[#2DBEED]/20 font-mono text-xs tracking-widest uppercase space-y-2.5">
                   <p className="text-[#2DBEED]">&gt; INITIALIZING AI ARCHITECTURE...</p>
                   <p className="text-[#2DBEED]">&gt; CONNECTING API & MOBILE NODES: <span className="text-[#C9933B] font-bold">READY</span></p>
                   <p className="text-[#2DBEED]">&gt; <span className="animate-pulse text-[#C9933B] font-mono font-bold">STATUS: COMPUTO E IA DEL SUR ONLINE</span></p>

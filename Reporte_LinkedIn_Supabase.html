@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reporte Supabase</title>
+<style>
+body { font-family: system-ui, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; color: #333; }
+h1, h2, h3 { color: #111; }
+table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+th { background-color: #f4f4f4; }
+.mermaid { background: #f8f9fa; padding: 10px; border-left: 4px solid #0077b5; font-family: monospace; }
+</style>
+</head>
+<body>
+<h1>Investigación sobre Supabase</h1>
+<p><strong>Autor:</strong> Investigación automática<br>
+<strong>Fecha:</strong> 7 de agosto de 2026</p>
+
+<h2>Resumen Ejecutivo</h2>
+<p>Supabase es una plataforma de backend como servicio (BaaS) de código abierto, enfocada en bases de datos relacionales y servicios integrados para aplicaciones modernas. Este informe describe qué es Supabase, sus componentes clave y sus planes y modalidades de uso. Se analizan en detalle los planes de suscripción (Free, Pro, Team, Enterprise) y las diferencias con desarrollar en la plataforma oficial, en local con CLI o auto-hospedando Supabase. Se incluyen comparativos de precios, cuotas y características, así como ventajas y desventajas de cada opción. Al final, se ofrecen recomendaciones según el tipo de proyecto.</p>
+
+<h2>¿Qué es Supabase?</h2>
+<p>Supabase se define como “una plataforma Backend-as-a-Service (BaaS) de código abierto creada en 2020”. A menudo se presenta como una alternativa de código abierto a Firebase, pero basada en la potencia técnica de PostgreSQL. Cada proyecto en Supabase incluye “una instancia dedicada de PostgreSQL con acceso completo a SQL avanzado, relaciones entre tablas y extensiones poderosas como PostGIS, Pgvector, pg_cron, y muchas más”. En resumen, Supabase proporciona en un solo panel de control los servicios de backend necesarios: gestión de base de datos, autenticación, almacenamiento de archivos, APIs automáticas (REST/GraphQL), datos en tiempo real y funciones serverless en el edge. Por ello, combina la fiabilidad de PostgreSQL con herramientas modernas (row-level security, extensiones vectoriales, etc.) para facilitar el desarrollo rápido de aplicaciones escalables.
+
+<h2>Arquitectura de Supabase</h2>
+<p>La arquitectura interna de Supabase está basada en varios servicios open source que se comunican con la base de datos Postgres central. En la plataforma oficial, cada proyecto tiene su propia base PostgreSQL completa (sin abstracciones), tal como lo indica la documentación: “Postgres is the core of Supabase. We do not abstract the Postgres database — you can access it and use it with full privileges”. Adicionalmente, Supabase integra varios servicios: <em>GoTrue</em> (API de autenticación JWT), <em>PostgREST</em> (servidor que convierte la BD en API REST), <em>Realtime</em> (motor WebSocket para cambios en tiempo real), <em>Storage</em> (almacenamiento de objetos S3-compatible), funciones edge con Deno, <em>postgres-meta</em> (API REST para gestión de la BD), entre otros. Cada uno de estos servicios se comunica con la instancia de Postgres. El siguiente diagrama (Mermaid) ilustra la arquitectura de un proyecto Supabase: un gateway (Envoy) expone APIs para el frontend y reenvía las peticiones a los servicios (Autenticación, APIs REST/GraphQL, Realtime, Storage, Funciones, etc.), todos vinculados al mismo Postgres central.</p>
+
+<div class="mermaid">
+graph LR
+    Envoy["Envoy API Gateway"] 
+    GoTrue["GoTrue (Auth)"] 
+    PostgREST["PostgREST (Auto-API)"] 
+    Realtime["Realtime (WebSockets)"] 
+    Storage["Storage (S3 API)"] 
+    PgMeta["postgres-meta (DB mgmt)"] 
+    Functions["Edge Functions (Deno)"] 
+    PgGraphQL["pg_graphql"] 
+    Postgres["Postgres (Database)"] 
+    Envoy --> GoTrue
+    Envoy --> PostgREST
+    Envoy --> Realtime
+    Envoy --> Storage
+    Envoy --> PgMeta
+    Envoy --> Functions
+    Envoy --> PgGraphQL
+    GoTrue --> Postgres
+    PostgREST --> Postgres
+    Realtime --> Postgres
+    Storage --> Postgres
+    PgMeta --> Postgres
+    Functions --> Postgres
+    PgGraphQL --> Postgres
+</div>
+
+<h2>Planes de Supabase en la plataforma gestionada</h2>
+
+<h3>Plan Free (gratuito)</h3>
+<p>El plan Free de Supabase es ideal para proyectos personales, prototipos y aprendizaje. Según la documentación oficial, este plan ofrece “Unlimited API requests”, hasta 50,000 usuarios activos mensuales, 500&nbsp;MB de base de datos, 1&nbsp;GB de almacenamiento de archivos, 5&nbsp;GB de egreso y 5&nbsp;GB de egreso cacheado, con soporte comunitario. Se permite un máximo de 2 proyectos activos por organización (los proyectos en pausa no cuentan). Sin embargo, los proyectos Free se pausan automáticamente tras una semana de inactividad. No incluye funciones avanzadas de respaldo, recuperación o seguridad adicional, y carece de soporte empresarial (solo comunidad).</p>
+
+<h3>Plan Pro</h3>
+<p>El plan Pro (USD 25/mes por organización) está diseñado para aplicaciones en producción de escala pequeña/mediana. Incluye todo lo del plan Free, más cuotas ampliadas: 100,000 MAU iniciales (0.00325 USD por MAU adicional), 8&nbsp;GB de BD por proyecto (luego 0.125 USD/GB), 250&nbsp;GB de egreso (0.09 USD/GB adicional), 250&nbsp;GB de egreso cacheado (0.03 USD/GB), y 100&nbsp;GB de almacenamiento de archivos (0.0213 USD/GB extra). Añade soporte por correo electrónico, respaldos diarios con retención de 7 días y logs de 7 días. Además, cada proyecto pagado recibe un crédito mensual de USD 10 para instancias de cómputo básico. El plan Pro no pausa proyectos por inactividad y eleva notablemente los límites de uso. Como contrapartida, implica costos extras si se superan las cuotas y carece de certificaciones de cumplimiento, SSO empresarial y retenciones más largas (solo 7 días).</p>
+
+<h3>Plan Team</h3>
+<p>El plan Team (USD 599/mes por organización) está orientado a empresas que requieren escalabilidad y cumplimiento. Incluye todo lo del plan Pro, más características avanzadas: certificaciones SOC2 e ISO 27001, roles de acceso finos, SSO en el dashboard, soporte prioritario con SLAs, respaldos diarios con retención de 14 días y logs de 28 días. También ofrece soporte para HIPAA como complemento y permite control más estricto de los proyectos. En resumen, Team agrega funcionalidades de gobernanza y seguridad corporativa a costa de un precio mucho mayor. Es adecuado para equipos grandes o regulados; para muchos proyectos pequeños resultará excesivo debido a su costo fijo elevado.</p>
+
+<h3>Plan Enterprise</h3>
+<p>El plan Enterprise tiene precio personalizado y está diseñado para cargas a escala de internet y grandes organizaciones. Además de incluir todas las características del plan Team, ofrece servicios dedicados: gerente de soporte asignado, acuerdos de SLA de disponibilidad, opción de implementar en la nube del cliente (BYO Cloud), soporte premium 24×7, canal Slack privado, y cuestionarios de seguridad personalizados. En la práctica, Enterprise permite escalar sin límite usando infraestructura dedicada, cumplir normativas estrictas y recibir atención VIP. La principal desventaja es el costo negociado (no divulgado) y la necesidad de contactar al equipo de ventas. Este plan se recomienda solo para empresas con necesidades muy grandes de rendimiento o seguridad.</p>
+
+<h2>Comparativa de planes</h2>
+<table>
+  <tr>
+    <th>Característica</th><th>Free</th><th>Pro</th><th>Team</th><th>Enterprise</th>
+  </tr>
+  <tr><td>Costo mensual por org.</td><td>$0</td><td>$25</td><td>$599</td><td>Personalizado</td></tr>
+  <tr><td>Proyectos activos</td><td>2 (max)</td><td>ilimitados</td><td>ilimitados</td><td>ilimitados</td></tr>
+  <tr><td>Usuarios activos (MAU)</td><td>50,000</td><td>100,000</td><td>100,000</td><td>Personalizado</td></tr>
+  <tr><td>Tamaño BD por proyecto</td><td>0.5&nbsp;GB</td><td>8&nbsp;GB</td><td>8&nbsp;GB</td><td>Personalizado</td></tr>
+  <tr><td>Almacenamiento de archivos</td><td>1&nbsp;GB</td><td>100&nbsp;GB</td><td>100&nbsp;GB</td><td>Personalizado</td></tr>
+  <tr><td>Egreso incluido</td><td>5&nbsp;GB</td><td>250&nbsp;GB</td><td>250&nbsp;GB</td><td>Personalizado</td></tr>
+  <tr><td>Backups diarios</td><td>No disponible</td><td>Retención 7 días</td><td>Retención 14 días</td><td>Retención >28 días</td></tr>
+  <tr><td>Retención de logs</td><td>-</td><td>7 días</td><td>28 días</td><td>90 días (ej.)</td></tr>
+  <tr><td>Soporte</td><td>Comunitario</td><td>Email (horario)</td><td>Prioritario (SLAs)</td><td>24×7 Premium</td></tr>
+  <tr><td>Certificaciones (SOC2/ISO)</td><td>No</td><td>No</td><td>Sí</td><td>Sí</td></tr>
+  <tr><td>SSO (SAML 2.0)</td><td>No</td><td>No</td><td>Sí</td><td>Sí</td></tr>
+</table>
+<p>Como resumen, el plan Free es totalmente gratis pero limitado a 2 proyectos y recursos modestos; el plan Pro extiende las cuotas y brinda soporte de pago; el plan Team añade cumplimiento corporativo (SSO, certs, backups extendidos); y Enterprise ofrece SLA y soporte dedicado a medida. Estas características se basan en la información oficial de Supabase.</p>
+
+<h2>Modalidades de despliegue</h2>
+<h3>Plataforma gestionada de Supabase</h3>
+<p>La modalidad estándar es usar la plataforma administrada de Supabase en supabase.com. En esta modalidad, la infraestructura (bases de datos, servicios y panel) la gestiona Supabase y las organizaciones pueden crear múltiples proyectos y equipos. Se dispone de todas las características y actualizaciones del servicio (incluyendo análisis, métricas, branching, etc.) que no están disponibles al auto-hospedar. La facturación es por organización, con un plan común para todos los proyectos de la misma organización. El beneficio principal es no tener que manejar servidores; la contrapartida es depender de la infraestructura de Supabase y de los precios en USD oficiales.</p>
+
+<h3>Desarrollo local con CLI</h3>
+<p>Para desarrollo y pruebas, Supabase ofrece una herramienta CLI que levanta localmente todos los servicios requeridos. Esto permite trabajar sin conexión, experimentar cambios rápido y sin costos de la plataforma: “Ventajas de trabajar en local: desarrollo más rápido, offline, sin costo y privacidad de datos”. En local se dispone de Postgres, Auth, Storage, Realtime, funciones, etc., pero <em>no</em> es un entorno para producción; la misma documentación advierte que el stack local “no está endurecido para producción” y no debe exponerse a internet. En general, se recomienda usar el CLI local para desarrollo o CI/CD, y desplegar luego a la plataforma gestionada o a un entorno de pruebas <em>serio</em> para producción.</p>
+
+<h3>Auto-hospedaje (“Self-hosting”)</h3>
+<p>Supabase también permite instalarse en propia infraestructura (por ejemplo usando Docker). El auto-hospedaje da control total de los datos y cumple requisitos de cumplimiento propios, pero conlleva trabajo operacional. Según la documentación, el entorno self-hosted “no admite múltiples organizaciones o proyectos” y carece de muchos servicios gestionados: no hay branching automático, métricas avanzadas (más allá de logs), copias de seguridad gestionadas ni recuperación a punto en el tiempo, análisis integrados, buckets vectoriales ni ETL automáticos. Además, quien se auto-hospede debe encargarse de todos los aspectos operativos (servidores, seguridad, backups, alta disponibilidad, etc.). En resumen, self-hosting ofrece libertad y cero costos de licencia de la plataforma, pero significa perder facilidad de uso y soporte; se suele recomendar solo para casos donde se necesite cumplir regulaciones muy estrictas o se quiera evitar totalmente un proveedor cloud.</p>
+
+<h2>Ventajas y desventajas por plan y modalidad</h2>
+<ul>
+  <li><strong>Free:</strong> Ventajas: precio cero, ideal para pruebas, incluye muchas funciones básicas. Desventajas: recursos limitados, solo 2 proyectos activos, pausa automática tras 7 días, sin soporte profesional ni backups avanzados.</li>
+  <li><strong>Pro:</strong> Ventajas: recursos suficientes para apps pequeñas/medianas, cuota fija ($25) con crédito inicial de cómputo, soporte por email, backups diarios cortos. Desventajas: costo adicional por exceso de uso (MAU, espacio, egreso), límite de retención (7 días), sin certificaciones ni SSO, gastos crecientes si escala mucho.</li>
+  <li><strong>Team:</strong> Ventajas: características de nivel empresarial (SOC2/ISO, SSO, audit logs extendidos, soporte prioritario) que facilitan cumplimiento. Desventajas: alto costo fijo (USD 599) difícil de justificar para proyectos pequeños; aún requiere manejo de costos de uso, y algunas opciones (como HIPAA) son adicionales.</li>
+  <li><strong>Enterprise:</strong> Ventajas: totalmente personalizable (SLA, soporte 24/7, infraestructura dedicada), opción de ejecutar en la nube propia y soporte premium. Desventajas: precio negociado (generalmente muy alto), requiere contrato empresarial, es la opción menos accesible para la mayoría.</li>
+  <li><strong>Plataforma gestionada:</strong> Ventajas: configuración y escalado automático, actualizaciones y nuevas funciones inmediatas, alta disponibilidad y mantenimiento a cargo de Supabase. Desventajas: dependencia del servicio externo, costos en USD y posibles limitaciones de regiones o disponibilidad según contrato.</li>
+  <li><strong>Local/CLI:</strong> Ventajas: desarrollo rápido y gratuito en máquina local; trabajar offline y con privacidad de datos; fácil para pruebas y automatización. Desventajas: no es para producción (stack no endurecido), pocos recursos comparado a la nube, y sin colaboración en tiempo real ni características avanzadas.</li>
+  <li><strong>Self-hosting:</strong> Ventajas: control total sobre datos y entorno (útil para cumplimiento/regulación); posibilidad de no pagar tarifas mensuales de plataforma. Desventajas: requiere experiencia DevOps para provisionar y asegurar los servicios; carece de servicios gestionados (backups, métricas avanzadas, etc.); toda responsabilidad operativa recae en el equipo.</li>
+</ul>
+
+<h2>Recomendaciones según el tipo de proyecto</h2>
+<p>Para proyectos de aprendizaje, prototipos personales o MVPs sencillos, el plan <em>Free</em> y/o el desarrollo local con CLI suelen ser suficientes y económicos. A medida que el proyecto crece o entra en producción, el plan <em>Pro</em> (USD 25/mes) es el punto de partida natural, pues ofrece recursos holgados y soporte básico. Equipos medianos o startups con requisitos de seguridad crecientes pueden considerar el plan <em>Team</em> por sus certificaciones y SSO. Para aplicaciones empresariales grandes o reguladas (finanzas, salud, gobierno), se recomienda evaluar <em>Team</em> o <em>Enterprise</em> para cumplir normativas y asegurar soporte 24/7. Incluso JetAdmin señala que “Free works” para proyectos de hobbie, “Pro es punto de partida para apps tempranas”, y que equipos regulados deben planear Team o Enterprise.</p>
+
+<h2>Conclusiones</h2>
+<p>Supabase es una plataforma BaaS robusta de código abierto centrada en PostgreSQL y servicios modernos (Auth, APIs automáticas, Realtime, storage, funciones). Sus planes diferencian entre necesidades básicas (Free), producción estándar (Pro) y cumplimiento empresarial (Team/Enterprise). Además, ofrece flexibilidad: puede usarse en la nube oficial, en local para desarrollo rápido, o auto-hospedarse para casos especiales. Cada modalidad tiene sus ventajas: la plataforma gestionada maximiza la facilidad de uso y funciones integrales, mientras que el auto-hosting da control absoluto al precio de mayor esfuerzo operativo. En general, las empresas pequeñas y medianas se beneficiarán de la versión Pro gestionada, y solo proyectos con fuertes restricciones de cumplimiento optarán por Team/Enterprise o por implementaciones auto-hospedadas. Esta información proviene de la documentación oficial de Supabase y fuentes técnicas actualizadas.</p>
+
+<h2>Referencias</h2>
+<ul>
+  <li>Aplyca. (19 de febrero de 2026). <em>Supabase: plataforma BaaS 2026</em>. Aplyca. https://www.aplyca.com/blog/blog-supabase-una-alternativa-agil-de-codigo-abierto</li>
+  <li>Supabase. (2026). <em>Pricing & Fees</em>. https://supabase.com/pricing</li>
+  <li>Supabase. (2026). <em>About billing on Supabase</em>. https://supabase.com/docs/guides/platform/billing-on-supabase</li>
+  <li>Supabase. (2026). <em>Architecture</em>. https://supabase.com/docs/guides/getting-started/architecture</li>
+  <li>Supabase. (2026). <em>Self-Hosting</em>. https://supabase.com/docs/guides/self-hosting</li>
+  <li>Supabase. (2026). <em>Local Development & CLI</em>. https://supabase.com/docs/guides/local-development</li>
+  <li>Kildishev, D. (2026, julio). <em>Supabase Pricing: 2026 Guide to Plans, Limits, and Real-World Costs</em>. JetAdmin. https://www.jetadmin.io/blog/supabase-pricing-2026-guide-to-plans-limits-and-real-world-costs/</li>
+</ul>
+
+<h2>Fuentes utilizadas</h2>
+<table>
+  <tr><th>URL</th><th>Título</th><th>Tipo</th><th>Fecha de acceso</th></tr>
+  <tr>
+    <td>https://supabase.com/pricing</td>
+    <td>Pricing &amp; Fees</td>
+    <td>Sitio oficial de Supabase</td>
+    <td>7 de agosto de 2026</td>
+  </tr>
+  <tr>
+    <td>https://supabase.com/docs/guides/platform/billing-on-supabase</td>
+    <td>About billing on Supabase</td>
+    <td>Documentación oficial Supabase</td>
+    <td>7 de agosto de 2026</td>
+  </tr>
+  <tr>
+    <td>https://supabase.com/docs/guides/getting-started/architecture</td>
+    <td>Architecture</td>
+    <td>Documentación oficial Supabase</td>
+    <td>7 de agosto de 2026</td>
+  </tr>
+  <tr>
+    <td>https://supabase.com/docs/guides/self-hosting</td>
+    <td>Self-Hosting</td>
+    <td>Documentación oficial Supabase</td>
+    <td>7 de agosto de 2026</td>
+  </tr>
+  <tr>
+    <td>https://supabase.com/docs/guides/local-development</td>
+    <td>Local Development &amp; CLI</td>
+    <td>Documentación oficial Supabase</td>
+    <td>7 de agosto de 2026</td>
+  </tr>
+  <tr>
+    <td>https://www.jetadmin.io/blog/supabase-pricing-2026-guide-to-plans-limits-and-real-world-costs/</td>
+    <td>Supabase Pricing: 2026 Guide to Plans, Limits, and Real-World Costs</td>
+    <td>Blog técnico (JetAdmin)</td>
+    <td>7 de agosto de 2026</td>
+  </tr>
+  <tr>
+    <td>https://www.aplyca.com/blog/blog-supabase-una-alternativa-agil-de-codigo-abierto</td>
+    <td>Supabase: plataforma BaaS 2026</td>
+    <td>Blog de empresa (Aplyca)</td>
+    <td>7 de agosto de 2026</td>
+  </tr>
+</table>
+
+
+</body>
+</html>

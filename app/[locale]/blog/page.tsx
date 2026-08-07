@@ -4,19 +4,31 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SwarmBackground from "@/components/SwarmBackground";
 import { getAllPosts } from "@/lib/data/posts";
+import { setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
-  title: "Nodos de Conocimiento & Insights | CÓMPUTO E IA DEL SUR",
-  description: "Artículos técnicos sobre Inteligencia de Enjambre, arquitectura de microchips, desarrollo multiplataforma e Inteligencia Artificial.",
+  title: "Blog | CÓMPUTO E IA DEL SUR",
+  description: "Artículos técnicos, noticias y novedades sobre nuestro ecosistema tecnológico.",
 };
+
+import { routing } from "@/i18n/routing";
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+import { getTranslations } from "next-intl/server";
+
 export default async function BlogPage({ params }: Props) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const posts = getAllPosts();
+  const t = await getTranslations("BlogIndex");
+  const tPosts = await getTranslations("BlogPosts");
 
   return (
     <div className="min-h-screen bg-[#051015] text-[#E2E8F0] flex flex-col relative selection:bg-[#2DBEED]/30 selection:text-[#2DBEED]">
@@ -25,20 +37,18 @@ export default async function BlogPage({ params }: Props) {
 
       <main className="flex-1 pt-36 pb-28 md:pt-44 md:pb-32 px-6 max-w-6xl mx-auto w-full relative z-10">
         {/* Header Hero del Blog */}
-        <div className="max-w-3xl mb-16">
-          <span className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#2DBEED]/10 text-[#2DBEED] border border-[#2DBEED]/30 text-xs sm:text-sm tracking-widest uppercase mb-6 font-mono">
-            <span className="w-2 h-2 rounded-full bg-[#2DBEED] animate-pulse" />
-            NODOS DE CONOCIMIENTO
-          </span>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#2DBEED] via-slate-100 to-[#C9933B]">
-            Insights & Publicaciones Técnicas
+        <header className="max-w-3xl mb-16">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 text-white leading-tight">
+            {t("title").split(" ").slice(0, -1).join(" ")}{" "}
+            <span className="text-[var(--primary-teal)] drop-shadow-[0_0_15px_rgba(45,190,237,0.3)]">
+              {t("title").split(" ").slice(-1)}
+            </span>
           </h1>
 
-          <p className="text-sm sm:text-base font-mono text-[#2DBEED] tracking-widest uppercase bg-[#0E2A35]/50 border border-[#2DBEED]/20 p-3.5 rounded-md inline-block">
-            &gt; ACCEDIENDO A REGISTROS DE INTELIGENCIA DE ENJAMBRE...
+          <p className="text-lg text-slate-300">
+            {t("subtitle")}
           </p>
-        </div>
+        </header>
 
         {/* Grid de Artículos estilo Honeycomb */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -54,10 +64,10 @@ export default async function BlogPage({ params }: Props) {
                 {/* Metadatos en tipografía de terminal */}
                 <div className="flex items-center justify-between mb-4 gap-2">
                   <span className="border border-[#2DBEED]/30 text-[#2DBEED] text-xs font-mono tracking-widest uppercase px-3 py-1 rounded-full bg-[#2DBEED]/10">
-                    {post.category}
+                    {tPosts(`${post.id}.category`)}
                   </span>
                   <span className="text-xs font-mono text-slate-400">
-                    {post.readTime}
+                    {tPosts(`${post.id}.readTime`)}
                   </span>
                 </div>
 
@@ -67,12 +77,12 @@ export default async function BlogPage({ params }: Props) {
 
                 <h2 className="text-xl font-bold text-slate-100 mb-3 group-hover:text-[#2DBEED] transition-colors leading-snug">
                   <Link href={`/${locale}/blog/${post.slug}`}>
-                    {post.title}
+                    {tPosts(`${post.id}.title`)}
                   </Link>
                 </h2>
 
                 <p className="text-slate-400 text-sm leading-relaxed mb-6 font-normal">
-                  {post.excerpt}
+                  {tPosts(`${post.id}.excerpt`)}
                 </p>
               </div>
 
